@@ -10,4 +10,6 @@ public interface CoffeeMapper {
 
     ArrayList<ProductDTO> productList();
 
+    int insert(ProductDTO dto);
+
 }
