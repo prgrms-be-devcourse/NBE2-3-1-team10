@@ -21,10 +21,16 @@ CREATE TABLE order
 
 CREATE TABLE order_item
 (
-    seq        int         NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    order_id   int         NOT NULL,
-    product_id int         NOT NULL,
-    count      int         NOT NULL,
+    seq          int    PRIMARY KEY AUTO_INCREMENT,
+    order_id     int    NOT NULL,
+    product_id   int    NOT NULL,
+    count        int    NOT NULL,
     CONSTRAINT fk_order_items_to_order FOREIGN KEY (order_id) REFERENCES order (order_id),
     CONSTRAINT fk_order_items_to_product FOREIGN KEY (product_id) REFERENCES product (product_id)
 );
+
+CREATE TABLE category
+(
+    category_id     int           primary key AUTO_INCREMENT,
+    name            varchar(20)   NOT NULL
+)
