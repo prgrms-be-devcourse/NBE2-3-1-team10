@@ -1,4 +1,4 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -141,7 +141,8 @@
                 <h5 class="col">총금액</h5>
                 <h5 class="col text-end">15000원</h5>
             </div>
-            <button class="btn btn-dark col-12">결제하기</button>
+            <button class="btn btn-dark col-12" style="margin-bottom: 10px;">결제하기</button>
+            <button class="btn btn-dark col-12" style="margin-top: 10px;">주문내역조회</button>
         </div>
     </div>
 </div>
