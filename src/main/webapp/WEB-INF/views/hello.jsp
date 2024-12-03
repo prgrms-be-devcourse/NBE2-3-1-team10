@@ -8,7 +8,7 @@
     <title>Title</title>
 </head>
 <body>
-hello.jsp???
+hello.jsp
 <br><br>
 
 </body>
