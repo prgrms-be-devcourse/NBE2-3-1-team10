@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.example.coffee.mapper.CoffeeMapper">
 
+    <!-- 관리자 페이지에서 상품의 목록을 보여주는 sql -->
+    <select id="productList" resultType="dto">
+        select productId, productName, price, quantity, imagename, categoryId
+        from coffee
+        order by productId desc
+    </select>
 </mapper>
