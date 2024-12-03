@@ -33,7 +33,7 @@ admin_product.jsp
 <br><br>
 <div>
     <table>
-
+        <%=sb.toString()%>
     </table>
 </div>
 
