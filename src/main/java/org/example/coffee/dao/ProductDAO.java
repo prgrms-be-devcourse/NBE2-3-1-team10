@@ -15,7 +15,22 @@ public class ProductDAO {
 
     public ArrayList<ProductDTO> productList() {
 
-        return null;
+        ArrayList<ProductDTO> list = coffeeMapper.productList();
+
+        return list;
+    }
+
+    public int insert(ProductDTO dto) {
+
+        int flag = 1;
+
+        int result = coffeeMapper.insert(dto);
+
+        if (result == 1) {
+            flag = 0;
+        }
+
+        return flag;
     }
 
 }

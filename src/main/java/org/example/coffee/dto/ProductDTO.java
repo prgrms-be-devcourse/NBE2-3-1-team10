@@ -11,10 +11,10 @@ import org.apache.ibatis.type.Alias;
 @ToString
 public class ProductDTO {
 
-    private int productId;
-    private String productName;
+    private int product_id;
+    private String product_name;
     private int price;
     private int quantity;
     private String imagename;
-    private int categoryId;
+    private int category_id;
 }
