@@ -31,6 +31,11 @@
 admin_product.jsp
 <!-- 상품 목록을 가져온 후 생성, 수정, 삭제를 하는 관리자 페이지 -->
 <br><br>
+<div>
+    <table>
+
+    </table>
+</div>
 
 </body>
 </html>
