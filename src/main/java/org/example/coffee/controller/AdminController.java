@@ -105,8 +105,12 @@ public class AdminController {
     public String modifyProduct(@RequestParam String productId, Model model) {
 
         System.out.println(productId);
-
-        return "admin_modify";
+        ProductDTO to = new ProductDTO();
+        to.setProduct_id(Integer.parseInt(productId));
+        ProductDTO productDTO = productDAO.getProduct(to);
+        model.addAttribute("to", productDTO);
+        model.addAttribute("imagePath", getImagePath(productDTO));
+        return "admin_product_update";
     }
 
     // 사진 이미지 가져오는 메서드 (컨트롤러에서 분리할 필요 있음)

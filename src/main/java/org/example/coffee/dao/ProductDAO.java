@@ -33,4 +33,8 @@ public class ProductDAO {
         return flag;
     }
 
+    public ProductDTO getProduct(ProductDTO to) {
+        return coffeeMapper.select(to);
+    }
+
 }
