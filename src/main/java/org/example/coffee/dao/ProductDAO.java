@@ -38,9 +38,9 @@ public class ProductDAO {
         return coffeeMapper.select(to);
     }
 
-    public int update(ProductDTO dto) {
+    public int updateProduct(ProductDTO dto) {
         int flag = 1;
-        int result = coffeeMapper.update(dto);
+        int result = coffeeMapper.updateProduct(dto);
 
         if (result == 1) {
             flag = 0;
@@ -49,4 +49,13 @@ public class ProductDAO {
         return flag;
     }
 
+    public int updateImage(ProductDTO dto) {
+        int flag = 1;
+        int result = coffeeMapper.updateImage(dto);
+
+        if (result == 1) {
+            flag = 0;
+        }
+        return flag;
+    }
 }

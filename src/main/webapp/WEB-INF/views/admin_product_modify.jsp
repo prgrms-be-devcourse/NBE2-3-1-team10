@@ -10,7 +10,6 @@
     int price = to.getPrice();
     int quantity = to.getQuantity();
     int categoryId = to.getCategory_id();
-    String imagename = to.getImagename();
     String category;
 
     switch (categoryId) {
@@ -63,6 +62,11 @@
                         return false;
                     }
                 }
+
+                if (document.wfrm.deleteImage.checked) {
+                    document.getElementById("flag").value = "1";
+                }
+
                 document.wfrm.submit();
             };
         };
@@ -74,6 +78,7 @@
 <div class="con_txt">
     <form action="/admin/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
         <input type="hidden" name="product_id" value="<%=productId%>"/>
+        <input type="hidden" name="flag" id="flag" value="0"/>
         <div class="contents_sub">
             <div class="board_write">
                 <table>
@@ -106,9 +111,14 @@
                         <th>상품이미지</th>
                         <td>
                             기존 이미지 : <img src="${imagePath}" alt="기존 상품 이미지" style="max-width: 200px; height: auto;" />
+                            <button type="button" onclick="document.getElementById('flag').value='1';">기존 이미지 삭제
+                            </button>
+                            <%--                             둘중 가독성 좋은걸로 하겠습니다. 버튼형식은 클릭시 색 변화를 줘야할듯--%>
+                            <input type="checkbox" name="deleteImage" id="deleteImage"/> 기존 이미지 삭제
+
                             <br/><br/>
                             <input type="file" name="upload"/>
-                            <input type="hidden" name="existingImage" value="<%=imagename%>"/>
+
                         </td>
                     </tr>
                 </table>
