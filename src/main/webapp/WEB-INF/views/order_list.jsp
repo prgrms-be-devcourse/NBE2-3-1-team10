@@ -178,7 +178,8 @@
                 <h5 class="col text-end"><span class="badge bg-dark text-">15000원</span></h5>
             </div>
             <button class="btn btn-dark col-12 mb-3">주문 취소</button>
-            <button class="btn btn-dark col-12">상품 목록</button>
+            <button class="btn btn-dark col-12 mb-3">주문 수정</button>
+            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
         </div>
     </div>
 </div>
