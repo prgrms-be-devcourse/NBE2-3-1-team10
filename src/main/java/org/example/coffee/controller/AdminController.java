@@ -72,7 +72,6 @@ public class AdminController {
 
                 fileName = name + "_" + System.nanoTime() + ext;
 
-                // 경로 주의
                 if (category.equals("coffee")) {
                     upload.transferTo(new File( homeDir + path +"/coffee", fileName));
                 } else if (category.equals("coffeeBean")) {
