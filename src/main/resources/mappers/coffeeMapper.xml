@@ -21,4 +21,11 @@
         where product_id=#{product_id}
     </update>
 
+    <!-- 상품 id로 상품을 조회하는 sql  -->
+    <select id="select" parameterType="dto" resultType="dto">
+        select product_id, product_name, price, quantity, imagename, category_id
+        from product
+        where product_id = #{product_id}
+    </select>
+
 </mapper>
