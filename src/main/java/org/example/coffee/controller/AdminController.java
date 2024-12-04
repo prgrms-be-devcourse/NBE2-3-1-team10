@@ -22,9 +22,11 @@ import java.util.ArrayList;
 @RequestMapping("/admin")
 public class AdminController {
     //TODO Config class 두는것 고려 (환경 변수를 final 로 하고 싶음)
+
     @Value("${my.path}")
     private String path;
-    @Value("${my.image-path")
+
+    @Value("${my.image-path}")
     private String imagePath;
     private String homeDir = System.getProperty("user.home");
 
@@ -113,6 +115,46 @@ public class AdminController {
         model.addAttribute("to", productDTO);
         model.addAttribute("imagePath", getImagePath(productDTO));
         return "admin_product_modify";
+    }
+
+    @PostMapping("/modify_ok")
+    public String modifyProductOk(HttpServletRequest request,
+                                  @RequestParam("upload") MultipartFile upload,
+                                  Model model
+    ) {
+        ProductDTO dto = new ProductDTO();
+        dto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
+        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setPrice(Integer.parseInt(request.getParameter("price")));
+        dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+
+        // 이미지 수정 안할경우 기존 이미지 이름 사용
+        String fileName = request.getParameter("existingImage");
+
+        String category = request.getParameter("category");
+        try {
+            if (!upload.isEmpty()) {
+                fileName = upload.getOriginalFilename();
+                String name = fileName.substring(0, fileName.lastIndexOf("."));
+                String ext = fileName.substring(fileName.lastIndexOf("."));
+                fileName = name + "_" + System.nanoTime() + ext;
+            }
+            switch (category) {
+                case "1" -> upload.transferTo(new File(homeDir + path + "/coffee", fileName));
+                case "2" -> upload.transferTo(new File(homeDir + path + "/coffeebean", fileName));
+                case "3" -> upload.transferTo(new File(homeDir + path + "/tea", fileName));
+            }
+        } catch (IOException e) {
+            System.out.println("[ERROR] : " + e.getMessage());
+        }
+        dto.setImagename(fileName);
+
+        int flag = productDAO.update(dto);
+
+        model.addAttribute("flag", flag);
+
+        return "admin_product_modify_ok";
     }
 
     // 사진 이미지 가져오는 메서드 (컨트롤러에서 분리할 필요 있음)

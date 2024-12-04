@@ -5,10 +5,12 @@
 <%
     ProductDTO to = (ProductDTO) request.getAttribute("to");
 
+    int productId = to.getProduct_id();
     String productName = to.getProduct_name();
     int price = to.getPrice();
     int quantity = to.getQuantity();
     int categoryId = to.getCategory_id();
+    String imagename = to.getImagename();
     String category;
 
     switch (categoryId) {
@@ -54,12 +56,13 @@
                     alert('카테고리를 입력해주세요.');
                     return false;
                 }
-
-                if (document.wfrm.upload.value == '') {
-                    alert('이미지를 등록해주세요.');
-                    return false;
+                if (document.wfrm.upload.value != '') {
+                    let extension = document.wfrm.upload.value.split( '.' ).pop();
+                    if( extension != 'png' && extension != 'jpg' && extension != 'gif' ) {
+                        alert( '이미지 파일을 등록하셔야 합니다.' );
+                        return false;
+                    }
                 }
-
                 document.wfrm.submit();
             };
         };
@@ -69,7 +72,8 @@
 <h3>Admin Page - product add</h3>
 <br><br>
 <div class="con_txt">
-    <form action="/admin/product/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
+    <form action="/admin/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
+        <input type="hidden" name="product_id" value="<%=productId%>"/>
         <div class="contents_sub">
             <div class="board_write">
                 <table>
@@ -92,9 +96,9 @@
                         <td>
                             <select name="category" class="board_view_input_mail">
                                 <option value="<%=categoryId%>" selected><%=category%></option>
-                                <option value="coffee">Coffee</option>
-                                <option value="coffeeBean">Coffee Bean</option>
-                                <option value="tea">Tea</option>
+                                <option value="1">Coffee</option>
+                                <option value="2">Coffee Bean</option>
+                                <option value="3">Tea</option>
                             </select>
                         </td>
                     </tr>
@@ -103,7 +107,8 @@
                         <td>
                             기존 이미지 : <img src="${imagePath}" alt="기존 상품 이미지" style="max-width: 200px; height: auto;" />
                             <br/><br/>
-                            <input type="file" name="upload" value="" />
+                            <input type="file" name="upload"/>
+                            <input type="hidden" name="existingImage" value="<%=imagename%>"/>
                         </td>
                     </tr>
                 </table>

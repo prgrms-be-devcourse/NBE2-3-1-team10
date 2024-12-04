@@ -20,5 +20,16 @@
         from product
         where product_id = #{product_id}
     </select>
+    
+    <!-- 상품 업데이트 -->
+    <update id="update" parameterType="dto">
+        update product
+        set product_name=#{product_name},
+            price=#{price},
+            quantity=#{quantity},
+            imagename=#{imagename},
+            category_id=#{category_id}
+        where product_id = #{product_id};
+    </update>
 
 </mapper>
