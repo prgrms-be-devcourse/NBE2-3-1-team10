@@ -44,16 +44,9 @@ public class AdminController {
         dto.setProduct_name(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
 
         String category = request.getParameter("category");
-
-        if (category.equals("coffee")) {
-            dto.setCategory_id(1);
-        } else if (category.equals("coffeeBean")) {
-            dto.setCategory_id(2);
-        } else if (category.equals("tea")) {
-            dto.setCategory_id(3);
-        }
 
         dto.setImagename(request.getParameter("image_name"));
 
@@ -68,11 +61,11 @@ public class AdminController {
                 fileName = name + "_" + System.nanoTime() + ext;
 
                 // 경로 주의
-                if (category.equals("coffee")) {
+                if (category.equals("1")) {
                     upload.transferTo(new File("/Users/yousuho/study/springEx/coffee/src/main/resources/static/upload/coffee", fileName));
-                } else if (category.equals("coffeeBean")) {
+                } else if (category.equals("2")) {
                     upload.transferTo(new File("/Users/yousuho/study/springEx/coffee/src/main/resources/static/upload/coffeebean", fileName));
-                } else if (category.equals("tea")) {
+                } else if (category.equals("3")) {
                     upload.transferTo(new File("/Users/yousuho/study/springEx/coffee/src/main/resources/static/upload/tea", fileName));
                 }
 
