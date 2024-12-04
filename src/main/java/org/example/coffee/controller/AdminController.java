@@ -22,11 +22,15 @@ import java.util.ArrayList;
 @RequestMapping("/admin")
 public class AdminController {
     //TODO Config class 두는것 고려 (환경 변수를 final 로 하고 싶음)
+
     @Value("${my.path}")
     private String path;
-    @Value("${my.image-path")
+
+    @Value("${my.image-path}")
     private String imagePath;
+
     private String homeDir = System.getProperty("user.home");
+    private final String dafaultIMG = "defaultIMG.png";
 
 
     @Autowired
@@ -57,18 +61,6 @@ public class AdminController {
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
-
-
-        String category = request.getParameter("category");
-
-//        if (category.equals("coffee")) {
-//            dto.setCategory_id(1);
-//        } else if (category.equals("coffeeBean")) {
-//            dto.setCategory_id(2);
-//        } else if (category.equals("tea")) {
-//            dto.setCategory_id(3);
-//        }
-
         if(!upload.isEmpty()) {
             try {
                 String fileName = upload.getOriginalFilename();
@@ -78,15 +70,9 @@ public class AdminController {
                 String ext = fileName.substring(fileName.lastIndexOf("."));
 
                 fileName = name + "_" + System.nanoTime() + ext;
+                upload.transferTo(new File(homeDir + path + "/" + fileName));
 
-                if (category.equals("1")) {
-                    upload.transferTo(new File( homeDir + path +"/coffee", fileName));
-                } else if (category.equals("2")) {
-                    upload.transferTo(new File(homeDir + path + "/coffeebean", fileName));
-                } else if (category.equals("3")) {
-                    upload.transferTo(new File(homeDir + path + "/tea", fileName));
-                }
-
+                System.out.println(fileName);
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
@@ -111,25 +97,64 @@ public class AdminController {
         to.setProduct_id(Integer.parseInt(productId));
         ProductDTO productDTO = productDAO.getProduct(to);
         model.addAttribute("to", productDTO);
-        model.addAttribute("imagePath", getImagePath(productDTO));
+        model.addAttribute("imagePath", imagePath + productDTO.getImagename());
         return "admin_product_modify";
     }
 
-    // 사진 이미지 가져오는 메서드 (컨트롤러에서 분리할 필요 있음)
-    public String getImagePath(ProductDTO dto) {
-        String fileName;
-        switch (dto.getCategory_id()) {
-            case 1:
-                fileName = "/coffee/";
-                break;
-            case 2:
-                fileName = "/coffeeBean/";
-                break;
-            case 3:
-                fileName = "/tea/";
-            default:
-                fileName = "";
+    @PostMapping("/modify_ok")
+    public String modifyProductOk(HttpServletRequest request,
+                                  @RequestParam("upload") MultipartFile upload,
+                                  Model model
+    ) {
+        ProductDTO dto = new ProductDTO();
+        dto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
+        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setPrice(Integer.parseInt(request.getParameter("price")));
+        dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+        int deleteFlage = Integer.parseInt(request.getParameter("flag"));
+        try {
+            if (!upload.isEmpty()) {
+                String fileName = upload.getOriginalFilename();
+                String name = fileName.substring(0, fileName.lastIndexOf("."));
+                String ext = fileName.substring(fileName.lastIndexOf("."));
+                fileName = name + "_" + System.nanoTime() + ext;
+
+                upload.transferTo(new File(homeDir + path + "/" + fileName));
+                dto.setImagename(fileName);
+                productDAO.updateImage(dto);
+            }
+
+        } catch (IOException e) {
+            System.out.println("[ERROR] : " + e.getMessage());
         }
-        return imagePath + fileName + dto.getImagename();
+        System.out.println("flag : " + deleteFlage);
+        if (deleteFlage == 1) {
+            System.out.println("이미지 삭제 로직");
+            deleteImage(dto);
+        }
+
+        int flag = productDAO.updateProduct(dto);
+
+        model.addAttribute("flag", flag);
+
+        return "admin_product_modify_ok";
+    }
+
+    public void deleteImage(ProductDTO dto) {
+        String imageName = productDAO.getProduct(dto).getImagename();
+        File fileToDelete = new File(homeDir + path + "/" + imageName);
+        if (fileToDelete.exists() && fileToDelete.isFile()) {
+            boolean isDeleted = fileToDelete.delete();
+            if (isDeleted) {
+                System.out.println("파일 삭제 성공");
+            } else {
+                System.out.println("파일 삭제 실패");
+            }
+        } else {
+            System.out.println("파일이 존재하지 않습니다");
+        }
+        dto.setImagename(dafaultIMG);
+        productDAO.updateImage(dto);
     }
 }
