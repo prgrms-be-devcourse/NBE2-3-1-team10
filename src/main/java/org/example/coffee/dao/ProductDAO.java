@@ -33,4 +33,17 @@ public class ProductDAO {
         return flag;
     }
 
+    public int update(ProductDTO dto) {
+
+        int flag = 1;
+
+        int result = coffeeMapper.update(dto);
+
+        if (result == 1) {
+            flag = 0;
+        }
+
+        return flag;
+    }
+
 }

@@ -14,4 +14,11 @@
         values (0, #{product_name}, #{price}, #{quantity}, #{imagename}, #{category_id})
     </insert>
 
+    <!-- 주문 취소 시 해당 주문의 product_id와 count를 받아서 update 해주는 sql -->
+    <update id="update" parameterType="dto">
+        update product
+        set quantity=quantity+#{quantity}
+        where product_id=#{product_id}
+    </update>
+
 </mapper>
