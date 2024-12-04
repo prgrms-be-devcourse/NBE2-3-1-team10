@@ -13,4 +13,6 @@ public interface CoffeeMapper {
     int insert(ProductDTO dto);
 
     ProductDTO select(ProductDTO dto);
+
+    int update(ProductDTO dto);
 }
