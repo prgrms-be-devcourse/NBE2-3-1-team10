@@ -37,6 +37,11 @@
         sb.append("<td>" + price + "</td>");
         sb.append("<td>" + quantity + "</td>");
         sb.append("<td>" + category + "</td>");
+        sb.append("<td>");
+        sb.append("<input type=\"button\" value=\"상품수정\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./modify?productId=" + productId + "'\" />");
+        sb.append("&nbsp;&nbsp;");
+        sb.append("<input type=\"button\" value=\"상품삭제\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./delete?productId=" + productId + "'\" />");
+        sb.append("</td>");
         sb.append("</tr>");
     }
 %>
@@ -69,6 +74,7 @@
                     <th width="20%">가격</th>
                     <th width="15%">수량</th>
                     <th width="20%">카테고리</th>
+                    <th width="20%">상품관리</th>
                 </tr>
                 <%=sb.toString()%>
             </table>
