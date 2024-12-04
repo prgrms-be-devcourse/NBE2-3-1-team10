@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.example.coffee.mapper.CoffeeMapper">
-<!--    <select id="list" resultType="dto">-->
-<!--        select *-->
-<!--        from emp-->
-<!--    </select>-->
+
+    <!-- 관리자 페이지에서 상품의 목록을 보여주는 sql -->
+    <select id="productList" resultType="dto">
+        select product_id, product_name, price, quantity, imagename, category_id
+        from product
+    </select>
+
+    <!-- 관리자 페이지에서 상품을 등록하는 sql -->
+    <insert id="insert" parameterType="dto">
+        insert into product
+        values (0, #{product_name}, #{price}, #{quantity}, #{imagename}, #{category_id})
+    </insert>
+
 </mapper>

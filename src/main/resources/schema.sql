@@ -8,7 +8,7 @@ CREATE TABLE product
     category_id  int          NOT NULL
 );
 
-CREATE TABLE order
+CREATE TABLE orders
 (
     order_id     int          PRIMARY KEY AUTO_INCREMENT,
     email        VARCHAR(100) NOT NULL,
@@ -25,12 +25,20 @@ CREATE TABLE order_item
     order_id     int    NOT NULL,
     product_id   int    NOT NULL,
     count        int    NOT NULL,
-    CONSTRAINT fk_order_items_to_order FOREIGN KEY (order_id) REFERENCES order (order_id),
-    CONSTRAINT fk_order_items_to_product FOREIGN KEY (product_id) REFERENCES product (product_id)
+    CONSTRAINT fk_order_item_to_order FOREIGN KEY (order_id) REFERENCES orders (order_id),
+    CONSTRAINT fk_order_item_to_product FOREIGN KEY (product_id) REFERENCES product (product_id)
 );
 
 CREATE TABLE category
 (
-    category_id     int           primary key AUTO_INCREMENT,
+    category_id     int           primary key,
     name            varchar(20)   NOT NULL
-)
+);
+
+
+
+insert into product values (0, '커피1', 12000, 10,
+                            '607927_1_thumb1.jpg',1);
+
+insert into product values (0, '커피2', 13000, 20,
+                            '607927_1_thumb1.jpg',1);
