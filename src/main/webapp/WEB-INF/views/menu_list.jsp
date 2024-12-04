@@ -166,6 +166,7 @@
                 <h5 class="col text-end">15000원</h5>
             </div>
             <button class="btn btn-dark col-12">결제하기</button>
+            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/orders'">주문내역확인하기</button>
         </div>
     </div>
 </div>
