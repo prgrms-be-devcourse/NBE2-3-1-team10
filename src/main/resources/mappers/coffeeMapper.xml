@@ -20,7 +20,7 @@
         from product
         where product_id = #{product_id}
     </select>
-    
+
     <!-- 상품 업데이트 -->
     <update id="updateProduct" parameterType="dto">
         update product
