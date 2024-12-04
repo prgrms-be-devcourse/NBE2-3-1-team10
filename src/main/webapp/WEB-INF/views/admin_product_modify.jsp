@@ -5,13 +5,9 @@
 <%
     ProductDTO to = (ProductDTO) request.getAttribute("to");
 
-    StringBuilder sb = new StringBuilder();
-
-    int productId = to.getProduct_id();
     String productName = to.getProduct_name();
     int price = to.getPrice();
     int quantity = to.getQuantity();
-    String imagename = to.getImagename();
     int categoryId = to.getCategory_id();
     String category;
 
@@ -70,13 +66,11 @@
     </script>
 </head>
 <body>
-<!-- 상품을 등록하는 관리자 페이지 -->
 <h3>Admin Page - product add</h3>
 <br><br>
 <div class="con_txt">
     <form action="/admin/product/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
         <div class="contents_sub">
-            <!--게시판-->
             <div class="board_write">
                 <table>
                     <tr>
@@ -123,7 +117,6 @@
                     <input type="button" id="updateBtn" value="상품수정" class="btn_write btn_txt01" style="cursor: pointer;" />
                 </div>
             </div>
-            <!--//게시판-->
         </div>
     </form>
 </div>
