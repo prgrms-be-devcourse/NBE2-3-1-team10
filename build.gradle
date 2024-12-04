@@ -36,7 +36,12 @@ dependencies {
 
     // jsp
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    implementation 'javax.servlet:jstl:1.2'
+//    implementation 'javax.servlet:jstl:1.2'
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+
+    // jstl
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 }
 
 tasks.named('test') {
