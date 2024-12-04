@@ -1,5 +1,8 @@
+<%@ page import="org.example.coffee.dto.ProductDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -84,78 +87,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
-                <tr>
-                    <td><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></td>
-                    <td>Columbia Nariñó</td>
-                    <td>1개</td>
-                    <td class="text-center price">5000원</td>
-                </tr>
+                <c:forEach var="orderProduct" items="${orderProducts}">
+                    <tr>
+                        <td>${orderProduct.imagename}</td>
+                        <td>${orderProduct.product_name}</td>
+                        <td>${orderProduct.total_product_quantity}</td>
+                        <td class="text-center price">${orderProduct.total_product_price}</td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -167,15 +106,15 @@
 
             <div class="row">
                 <h5 class="col">배송 상태</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">배송 준비중</span></h5>
+                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.order_status}</span></h5>
             </div>
             <div class="row">
                 <h5 class="col">총 수량</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">4개</span></h5>
+                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_quantity}</span></h5>
             </div>
             <div class="row pt-2 pb-2 border-top">
                 <h5 class="col">총 금액</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">15000원</span></h5>
+                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_price}</span></h5>
             </div>
             <button class="btn btn-dark col-12 mb-3">주문 취소</button>
             <button class="btn btn-dark col-12 mb-3">주문 수정</button>
