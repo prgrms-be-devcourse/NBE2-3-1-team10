@@ -70,10 +70,9 @@
                         <th>카테고리</th>
                         <td>
                             <select name="category" class="board_view_input_mail">
-                                <option value=1>Coffee</option>
-                                <option value=2>Coffee Bean</option>
-                                <option value=3>Tea</option>
-
+                                <option value="coffee">Coffee</option>
+                                <option value="coffeeBean">Coffee Bean</option>
+                                <option value="tea">Tea</option>
                             </select>
                         </td>
                     </tr>
