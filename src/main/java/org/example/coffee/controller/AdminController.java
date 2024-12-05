@@ -141,6 +141,13 @@ public class AdminController {
         return "admin_product_modify_ok";
     }
 
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam int productId, Model model) {
+        int flag = productDAO.deleteProduct(productId);
+        model.addAttribute("flag", flag);
+        return "admin_delete";
+    }
+
     public void deleteImage(ProductDTO dto) {
         String imageName = productDAO.getProduct(dto).getImagename();
         File fileToDelete = new File(homeDir + path + "/" + imageName);
