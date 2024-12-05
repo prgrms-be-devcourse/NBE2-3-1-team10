@@ -14,7 +14,7 @@ CREATE TABLE order
     email        VARCHAR(100) NOT NULL,
     address      VARCHAR(100) NOT NULL,
     zipcode      VARCHAR(10)  NOT NULL,
-    order_time   VARCHAR(50)  NOT NULL,
+    order_time   DATETIME  NOT NULL,
     order_status VARCHAR(20)  NOT NULL,
     total_price  int          NOT NULL
 );

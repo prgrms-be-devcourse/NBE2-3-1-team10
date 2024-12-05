@@ -18,7 +18,7 @@
         String email = to.getEmail();
         String address = to.getAddress();
         String zipcode = to.getZipcode();
-        String order_time = to.getOrder_time();
+        LocalDateTime order_time = to.getOrder_time();
         String order_status = to.getOrder_status();
         int total_price = to.getTotal_price();
 
@@ -44,11 +44,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="../../css/board.css">
+    <script type="text/javascript">
+        const totalRecord = <%=totalRecord%>;
+        window.onload = function () {
+            document.getElementById('dbtn').onclick = function () {
+                alert('총 ' + totalRecord + '건의 주문이 출고 처리되었습니다.');
+                document.deliveryForm.submit();
+            };
+        };
+    </script>
+    <style>
+        .right-action {
+            text-align: right;
+            margin: 10px 20px;
+        }
+
+        .action-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+
 </head>
 
 <body>
 <div class="con_title" style="text-align: center; margin-top: 50px;">
     <h2>오늘 배송할 주문 목록</h2>
+    <form action="" method="post" name="deliveryForm">
+        <div class="right-action">
+            <input type="button" id="dbtn" value="출고" class="action-btn"/>
+        </div>
+
+    </form>
 </div>
 <div class="con_txt">
     <div class="contents_sub">
