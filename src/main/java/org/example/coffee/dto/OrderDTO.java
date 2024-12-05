@@ -1,10 +1,11 @@
 package org.example.coffee.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.apache.ibatis.type.Alias;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class OrderDTO {

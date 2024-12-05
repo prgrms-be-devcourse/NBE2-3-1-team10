@@ -4,29 +4,47 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.example.coffee.dao.OrderDAO;
 import org.example.coffee.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.example.coffee.dto.OrderProductDTO;
+import org.example.coffee.dto.OrderSummaryDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderDAO orderDAO;
+    private final OrderDAO orderDAO;
 
-    @GetMapping("/order")
-    public String order() {
-        return "order_list";
-    }
-
-    @GetMapping("/user")
-    public String user() {
+    @GetMapping
+    public String userCheckForm() {
         return "user_check_form";
     }
 
-    @GetMapping("/order/modify")
+    @PostMapping
+    public String orderList(@RequestParam String email, Model model) {
+        OrderDTO order = orderDAO.findOrderByEmail(email);
+        if (order == null) {
+            return "redirect:/orders";
+        }
+
+        List<OrderProductDTO> orderProducts = orderDAO.findOrderProductsByEmail(email);
+        model.addAttribute("orderProducts", orderProducts);
+
+        OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(email);
+        model.addAttribute("orderSummary", orderSummary);
+
+        return "order_list";
+    }
+
+    @GetMapping("/modify")
     public String modifyOrder(String email, Model model) {
         OrderDTO to = new OrderDTO();
         to.setEmail(email);
@@ -38,7 +56,8 @@ public class OrderController {
         return "order_modify";
     }
 
-    @PostMapping("/order/modify_ok")
+
+    @PostMapping("/modify_ok")
     public String modifyOrderOk(HttpServletRequest request, Model model) {
         OrderDTO to = new OrderDTO();
         to.setEmail(request.getParameter("email"));
@@ -47,7 +66,6 @@ public class OrderController {
         System.out.println(to);
 
         model.addAttribute("flag", orderDAO.modifyOrderOk(to));
-
         return "order_modify_ok";
     }
 

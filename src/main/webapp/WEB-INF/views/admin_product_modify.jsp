@@ -1,6 +1,29 @@
+<%@ page import="org.example.coffee.dto.ProductDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+         pageEncoding="UTF-8" %>
+
+<%
+    ProductDTO to = (ProductDTO) request.getAttribute("to");
+
+    String productName = to.getProduct_name();
+    int price = to.getPrice();
+    int quantity = to.getQuantity();
+    int categoryId = to.getCategory_id();
+    String category;
+
+    switch (categoryId) {
+        case 1 :
+            category = "Coffee";
+            break;
+        case 2:
+            category = "CoffeeBean";
+            break;
+        case 3:
+            category = "tea";
+        default:
+            category = "select";
+    }
+%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/css/board.css">
     <script type="text/javascript">
         window.onload = function () {
-            document.getElementById("wbtn").onclick = function () {
+            document.getElementById("updateBtn").onclick = function () {
 
                 if (document.wfrm.product_name.value == '') {
                     alert('상품명을 입력해주세요.');
@@ -43,42 +66,43 @@
     </script>
 </head>
 <body>
-<!-- 상품을 등록하는 관리자 페이지 -->
 <h3>Admin Page - product add</h3>
 <br><br>
 <div class="con_txt">
-    <form action="/admin/add_ok" method="post" name="wfrm" enctype="multipart/form-data">
+    <form action="/admin/product/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
         <div class="contents_sub">
-            <!--게시판-->
             <div class="board_write">
                 <table>
                     <tr>
                         <th class="top">상품명</th>
                         <td class="top">
-                            <input type="text" name="product_name" value="" class="board_view_input" maxlength="50" />
+                            <input type="text" name="product_name" value="<%=productName%>" class="board_view_input" maxlength="50" />
                         </td>
                     </tr>
                     <tr>
                         <th>가격</th>
-                        <td><input type="text" name="price" value="" class=board_view_input_mail /></td>
+                        <td><input type="text" name="price" value="<%=price%>" class=board_view_input_mail /></td>
                     </tr>
                     <tr>
                         <th>수량</th>
-                        <td><input type="text" name="quantity" value="" class="board_view_input_mail"/></td>
+                        <td><input type="text" name="quantity" value="<%=quantity%>" class="board_view_input_mail"/></td>
                     </tr>
                     <tr>
                         <th>카테고리</th>
                         <td>
                             <select name="category" class="board_view_input_mail">
-                                <option value=1>Coffee</option>
-                                <option value=2>Coffee Bean</option>
-                                <option value=3>Tea</option>
+                                <option value="<%=categoryId%>" selected><%=category%></option>
+                                <option value="coffee">Coffee</option>
+                                <option value="coffeeBean">Coffee Bean</option>
+                                <option value="tea">Tea</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th>상품이미지</th>
                         <td>
+                            기존 이미지 : <img src="${imagePath}" alt="기존 상품 이미지" style="max-width: 200px; height: auto;" />
+                            <br/><br/>
                             <input type="file" name="upload" value="" />
                         </td>
                     </tr>
@@ -90,10 +114,9 @@
                     <input type="button" value="상품목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='./list'" />
                 </div>
                 <div class="align_right">
-                    <input type="button" id="wbtn" value="상품등록" class="btn_write btn_txt01" style="cursor: pointer;" />
+                    <input type="button" id="updateBtn" value="상품수정" class="btn_write btn_txt01" style="cursor: pointer;" />
                 </div>
             </div>
-            <!--//게시판-->
         </div>
     </form>
 </div>

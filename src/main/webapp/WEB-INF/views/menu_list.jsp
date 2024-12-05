@@ -1,3 +1,50 @@
+<%@ page import="org.example.coffee.dto.ProductDTO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    ArrayList<ProductDTO> menu_list = (ArrayList<ProductDTO>) request.getAttribute("menu_list");
+    int totalMenu = menu_list.size();
+
+    StringBuilder sbHtml = new StringBuilder();
+
+    for (ProductDTO to : menu_list) {
+
+        int productId = to.getProduct_id();
+        String productName = to.getProduct_name();
+        int price = to.getPrice();
+        int quantity = to.getQuantity();
+        String imageName = to.getImagename();
+        int categoryId = to.getCategory_id();
+        String category = "";
+
+        if (categoryId == 1) {
+            category = "coffee";
+        } else if (categoryId == 2) {
+            category = "coffeeBean";
+        } else if (categoryId == 3) {
+            category = "tea";
+        } else {
+            category = "none";
+        }
+
+        String imagePath = "/upload/" + imageName;
+        System.out.println("[imagePath] : " + imagePath);
+
+        sbHtml.append("<li class='list-group-item d-flex mt-3'>");
+        sbHtml.append("<div class='col-2'><img class='img-fluid' src='"+imagePath+"' alt='"+productName+"'></div>");
+        sbHtml.append("<div class='col'>");
+        sbHtml.append("<div class='row text-muted'>" + category + "</div>");
+        sbHtml.append("<div class='row'>" + productName + "</div>");
+        sbHtml.append("</div>");
+        sbHtml.append("<div class='col text-center price'>" + price + "</div>");
+        sbHtml.append("<div class='col text-end action'><a class='btn btn-small btn-outline-dark' href=''>추가</a></div>");
+        sbHtml.append("</li>");
+
+    }
+
+
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -57,18 +104,21 @@
         hr {
             margin-top: 1.25rem
         }
+
         .products {
             width: 100%;
         }
+
         .products .price, .products .action {
             line-height: 38px;
         }
+
         .products .action {
             line-height: 38px;
         }
 
     </style>
-    <title>Hello, world!</title>
+    <title>Grids & Circle 입니다</title>
 </head>
 <body class="container-fluid">
 <div class="row justify-content-center m-4">
@@ -78,34 +128,8 @@
     <div class="row">
         <div class="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0">
             <h5 class="flex-grow-0"><b>상품 목록</b></h5>
-            <ul class="list-group products">
-                <li class="list-group-item d-flex mt-3">
-                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></div>
-                    <div class="col">
-                        <div class="row text-muted">커피콩</div>
-                        <div class="row">Columbia Nariñó</div>
-                    </div>
-                    <div class="col text-center price">5000원</div>
-                    <div class="col text-end action"><a class="btn btn-small btn-outline-dark" href="">추가</a></div>
-                </li>
-                <li class="list-group-item d-flex mt-2">
-                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></div>
-                    <div class="col">
-                        <div class="row text-muted">커피콩</div>
-                        <div class="row">Columbia Nariñó</div>
-                    </div>
-                    <div class="col text-center price">5000원</div>
-                    <div class="col text-end action"><a class="btn btn-small btn-outline-dark" href="">추가</a></div>
-                </li>
-                <li class="list-group-item d-flex mt-2">
-                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/HKOFQYa.jpeg" alt=""></div>
-                    <div class="col">
-                        <div class="row text-muted">커피콩</div>
-                        <div class="row">Columbia Nariñó</div>
-                    </div>
-                    <div class="col text-center price">5000원</div>
-                    <div class="col text-end action"><a class="btn btn-small btn-outline-dark" href="">추가</a></div>
-                </li>
+            <ul class="list-group products" style="height: 500px; overflow-y: auto;">
+                <%= sbHtml.toString() %>
             </ul>
         </div>
         <div class="col-md-4 summary p-4">
@@ -141,7 +165,8 @@
                 <h5 class="col">총금액</h5>
                 <h5 class="col text-end">15000원</h5>
             </div>
-            <button class="btn btn-dark col-12">결제하기</button>
+            <button class="btn btn-dark col-12" style="margin-bottom: 10px;">결제하기</button>
+            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/orders'">주문내역확인하기</button>
         </div>
     </div>
 </div>

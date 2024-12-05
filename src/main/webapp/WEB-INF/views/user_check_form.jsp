@@ -43,16 +43,16 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mt-4 d-flex flex-column align-items-center p-3 pt-0">
             <h1 class="text-center">주문 내역 확인</h1>
-            <form style="width:100%;">
+            <form style="width:100%;" action="/orders" method="post">
                 <div class="mb-3">
                     <label></label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" name="email" placeholder="name@example.com">
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-dark col-12 mb-3">제출</button>
-                    <button class="btn btn-dark col-12">상품 목록</button>
+                    <button type="submit" class="btn btn-dark col-12 mb-3">제출</button>
                 </div>
             </form>
+            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
         </div>
     </div>
 </div>
