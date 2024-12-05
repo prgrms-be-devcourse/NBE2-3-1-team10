@@ -1,5 +1,6 @@
 package org.example.coffee.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.example.coffee.config.PropertyConfig;
 import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.ProductDTO;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -53,25 +55,24 @@ public class AdminController {
         dto.setProduct_name(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
 
         if(!upload.isEmpty()) {
             try {
                 String fileName = upload.getOriginalFilename();
-
                 // fileName 중복제거
                 String name = fileName.substring(0, fileName.lastIndexOf("."));
                 String ext = fileName.substring(fileName.lastIndexOf("."));
 
                 fileName = name + "_" + System.nanoTime() + ext;
                 upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
-
+              
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
                 System.out.println("[ERROR] : " + e.getMessage());
             }
         }
+      
         int flag = productDAO.insert(dto);
         model.addAttribute("flag", flag);
 
@@ -155,5 +156,8 @@ public class AdminController {
         // 기본 이미지 설정
         dto.setImagename(dafaultIMG);
         productDAO.updateImage(dto);
+
+        return "admin_modify";
+
     }
 }

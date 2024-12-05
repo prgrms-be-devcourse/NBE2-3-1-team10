@@ -51,5 +51,4 @@
         set deleted=1
         where product_id=#{productId}
     </update>
-
 </mapper>

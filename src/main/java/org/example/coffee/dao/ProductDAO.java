@@ -30,7 +30,6 @@ public class ProductDAO {
         if (result == 1) {
             flag = 0;
         }
-
         return flag;
     }
 
