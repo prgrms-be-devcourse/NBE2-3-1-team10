@@ -44,4 +44,18 @@ public class OrderDAO {
 
         return flag;
     }
+
+    public int delete(OrderDTO dto) {
+
+        int flag = 1;
+
+        int result = orderMapper.delete(dto);
+
+        if (result == 1) {
+            flag = 0;
+        }
+
+        return flag;
+    }
 }
+

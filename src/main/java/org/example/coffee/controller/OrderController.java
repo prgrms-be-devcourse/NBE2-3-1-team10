@@ -8,10 +8,7 @@ import org.example.coffee.dto.OrderProductDTO;
 import org.example.coffee.dto.OrderSummaryDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -69,4 +66,16 @@ public class OrderController {
         return "order_modify_ok";
     }
 
+//    @DeleteMapping("/order")
+//    public String deleteOrder(@RequestParam("order_id") String orderId,
+//                              Model model) {
+//
+//        try {
+//            boolean result = orderService.deleteOrder(orderId);
+//            model.addAttribute("flag", result ? 0 : 1); // 성공 시 0, 실패 시 1
+//        } catch (RuntimeException e) {
+//            model.addAttribute("flag", 1); // 실패 플래그 설정
+//        }
+//        return "order_delete_ok";
+//    }
 }
