@@ -3,7 +3,6 @@
 
 <%
     int flag = (Integer) request.getAttribute("flag");
-    String email = (String) request.getAttribute("email");
 
     out.println("<script type='text/javascript'>");
     if(flag == 0) {
