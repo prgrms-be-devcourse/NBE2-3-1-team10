@@ -17,4 +17,5 @@ public class ProductDTO {
     private int quantity;
     private String imagename;
     private int category_id;
+    private boolean deleted;
 }
