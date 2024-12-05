@@ -1,7 +1,6 @@
 package org.example.coffee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.example.coffee.config.PropertyConfig;
 import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.ProductDTO;
 
@@ -21,20 +21,13 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    //TODO Config class 두는것 고려 (환경 변수를 final 로 하고 싶음)
-
-    @Value("${my.path}")
-    private String path;
-
-    @Value("${my.image-path}")
-    private String imagePath;
-
-    private String homeDir = System.getProperty("user.home");
-    private final String dafaultIMG = "defaultIMG.png";
-
 
     @Autowired
+    private PropertyConfig propertyConfig;
+    @Autowired
     private ProductDAO productDAO;
+    private final String dafaultIMG = "defaultIMG.png";
+
 
     @GetMapping("/list")
     public String product(Model model) {
@@ -70,7 +63,7 @@ public class AdminController {
                 String ext = fileName.substring(fileName.lastIndexOf("."));
 
                 fileName = name + "_" + System.nanoTime() + ext;
-                upload.transferTo(new File(homeDir + path + "/" + fileName));
+                upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
 
                 System.out.println(fileName);
                 dto.setImagename(fileName);
@@ -79,11 +72,7 @@ public class AdminController {
                 System.out.println("IO Exception " + e.getMessage());
             }
         }
-
         int flag = productDAO.insert(dto);
-
-        System.out.println(flag);
-
         model.addAttribute("flag", flag);
 
         return "admin_add_ok";
@@ -92,12 +81,13 @@ public class AdminController {
     @GetMapping("/modify")
     public String modifyProduct(@RequestParam String productId, Model model) {
 
-        System.out.println(productId);
         ProductDTO to = new ProductDTO();
         to.setProduct_id(Integer.parseInt(productId));
         ProductDTO productDTO = productDAO.getProduct(to);
+
         model.addAttribute("to", productDTO);
-        model.addAttribute("imagePath", imagePath + productDTO.getImagename());
+        model.addAttribute("imagePath", propertyConfig.getUpload() + productDTO.getImagename());
+
         return "admin_product_modify";
     }
 
@@ -120,7 +110,7 @@ public class AdminController {
                 String ext = fileName.substring(fileName.lastIndexOf("."));
                 fileName = name + "_" + System.nanoTime() + ext;
 
-                upload.transferTo(new File(homeDir + path + "/" + fileName));
+                upload.transferTo(new File(propertyConfig.getHome() + propertyConfig.getPath() + fileName));
                 dto.setImagename(fileName);
                 productDAO.updateImage(dto);
             }
@@ -133,9 +123,7 @@ public class AdminController {
             System.out.println("이미지 삭제 로직");
             deleteImage(dto);
         }
-
         int flag = productDAO.updateProduct(dto);
-
         model.addAttribute("flag", flag);
 
         return "admin_product_modify_ok";
@@ -145,22 +133,26 @@ public class AdminController {
     public String deleteProduct(@RequestParam int productId, Model model) {
         int flag = productDAO.deleteProduct(productId);
         model.addAttribute("flag", flag);
+
         return "admin_delete";
     }
 
     public void deleteImage(ProductDTO dto) {
+
         String imageName = productDAO.getProduct(dto).getImagename();
-        File fileToDelete = new File(homeDir + path + "/" + imageName);
+        File fileToDelete = new File(propertyConfig.getHome() + propertyConfig.getPath() + imageName);
+
         if (fileToDelete.exists() && fileToDelete.isFile()) {
             boolean isDeleted = fileToDelete.delete();
             if (isDeleted) {
-                System.out.println("파일 삭제 성공");
+                System.out.println("이미지 파일 삭제 성공");
             } else {
-                System.out.println("파일 삭제 실패");
+                System.out.println("이미지 파일 삭제 실패");
             }
         } else {
-            System.out.println("파일이 존재하지 않습니다");
+            System.out.println("이미지 파일이 존재하지 않습니다");
         }
+        // 기본 이미지 설정
         dto.setImagename(dafaultIMG);
         productDAO.updateImage(dto);
     }
