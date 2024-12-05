@@ -156,8 +156,5 @@ public class AdminController {
         // 기본 이미지 설정
         dto.setImagename(dafaultIMG);
         productDAO.updateImage(dto);
-
-        return "admin_modify";
-
     }
 }
