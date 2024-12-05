@@ -3,7 +3,7 @@
 <mapper namespace="org.example.coffee.mapper.OrderMapper">
 
     <select id="findOrderByEmail" resultType="OrderDTO">
-        select order_status, total_price
+        select order_id, order_status, total_price
         from orders
         where email = #{email}
     </select>
@@ -11,16 +11,16 @@
     <select id="findOrderProductsByEmail" resultType="OrderProductDTO">
         select p.imagename, p.product_name, (oi.count * p.price) as total_product_price, oi.count as total_product_quantity
         from orders o
-                 join order_item oi on o.order_id = oi.order_id
-                 join product p on oi.product_id = p.product_id
+        join order_item oi on o.order_id = oi.order_id
+        join product p on oi.product_id = p.product_id
         where o.email = #{email}
     </select>
 
     <select id="findOrderSummary" resultType="OrderSummaryDTO">
         select o.order_status, sum(oi.count) as total_order_quantity, sum(oi.count * p.price) as total_order_price
         from orders o
-                 join order_item oi on o.order_id = oi.order_id
-                 join product p on oi.product_id = p.product_id
+        join order_item oi on o.order_id = oi.order_id
+        join product p on oi.product_id = p.product_id
         where o.email = #{email}
     </select>
 
