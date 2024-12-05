@@ -3,11 +3,12 @@
 
 <%
     int flag = (Integer) request.getAttribute("flag");
+    String email = (String) request.getAttribute("email");
 
     out.println("<script type='text/javascript'>");
     if(flag == 0) {
         out.println("alert('배송지 수정 성공');");
-        out.println("location.href='/order';");
+        out.println("location.href='/orders';");
     } else {
         out.println("alert('배송지 수정 실패');");
         out.println("history.back();");

@@ -1,16 +1,15 @@
 package org.example.coffee.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.example.coffee.dao.OrderDAO;
 import org.example.coffee.dto.OrderDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.example.coffee.dto.OrderProductDTO;
 import org.example.coffee.dto.OrderSummaryDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,6 +39,7 @@ public class OrderController {
 
         OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(email);
         model.addAttribute("orderSummary", orderSummary);
+        model.addAttribute("email", email);
 
         return "order_list";
     }
