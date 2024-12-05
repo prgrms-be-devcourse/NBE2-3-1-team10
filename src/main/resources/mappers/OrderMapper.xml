@@ -25,4 +25,17 @@
         where o.email = #{email}
     </select>
 
+    <select id="modify" parameterType="OrderDTO" resultType="OrderDTO">
+        select email, address, zipcode
+        from orders
+        where email=#{email}
+    </select>
+
+
+    <update id="modifyOk" parameterType="OrderDTO">
+        update orders
+        set address=#{address}, zipcode=#{zipcode}
+        where email=#{email}
+    </update>
+
 </mapper>
