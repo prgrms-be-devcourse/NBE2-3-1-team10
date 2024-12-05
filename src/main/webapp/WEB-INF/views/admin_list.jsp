@@ -54,6 +54,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="/css/board.css">
+
     <script>
         function confirmDelete(productId) {
             // 경고창 띄우기
@@ -98,6 +99,5 @@
         <!--//게시판-->
     </div>
 </div>
-
 </body>
 </html>
