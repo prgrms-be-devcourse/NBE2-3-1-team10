@@ -12,7 +12,7 @@
         int productId = to.getProduct_id();
         String productName = to.getProduct_name();
         int price = to.getPrice();
-        int quantity = to.getQuantity();
+        int stock = to.getQuantity();
         String imageName = to.getImagename();
         int categoryId = to.getCategory_id();
         String category = "";
@@ -31,19 +31,81 @@
         System.out.println("[imagePath] : " + imagePath);
 
         sbHtml.append("<li class='list-group-item d-flex mt-3'>");
+        sbHtml.append("<input type='hidden' name='productId' value='" + productId + "'>");
+        sbHtml.append("<input type='hidden' name='stock' value='" + stock + "'>");
         sbHtml.append("<div class='col-2'><img class='img-fluid' src='"+imagePath+"' alt='"+productName+"'></div>");
         sbHtml.append("<div class='col'>");
         sbHtml.append("<div class='row text-muted'>" + category + "</div>");
         sbHtml.append("<div class='row'>" + productName + "</div>");
         sbHtml.append("</div>");
         sbHtml.append("<div class='col text-center price'>" + price + "</div>");
-        sbHtml.append("<div class='col text-end action'><a class='btn btn-small btn-outline-dark' href=''>추가</a></div>");
+        sbHtml.append("<div class='col text-end action d-flex align-items-center justify-content-end'>");
+        sbHtml.append("<input type='number' min='1' value='1' style='width: 60px; margin-right: 10px;'>");
+        sbHtml.append("<a class='btn btn-small btn-outline-dark' href=''>추가</a>");
+        sbHtml.append("</div>");
         sbHtml.append("</li>");
 
     }
 
 
 %>
+
+<script>
+    // 아이템 정보를 저장할 배열
+    const items = [];
+    document.addEventListener('DOMContentLoaded', function() {
+        const itemListElement = document.querySelector('.item-list');
+
+        // 요약 정보 업데이트
+        const updateSummary = () => {
+            itemListElement.innerHTML = '';
+            items.forEach(item => {
+                const itemSummary = document.createElement('div');
+                itemSummary.classList.add('row');
+                itemSummary.innerHTML = '<h6 class="p-0">' + item.productName + ' <span class="badge bg-dark">' + item.quantity + '개</span></h6>';
+                itemListElement.appendChild(itemSummary);
+            });
+        };
+
+        // 추가 버튼 클릭 시 동작
+        const buttons = document.querySelectorAll('.btn-outline-dark');
+        buttons.forEach((button) => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // 아이템의 정보를 가져오기
+                const itemElement = button.closest('li');
+                const productId = parseInt(itemElement.querySelector('input[name="productId"]').value, 10);
+                const stock = parseInt(itemElement.querySelector('input[name="stock"]').value, 10);
+                const productName = itemElement.querySelector('.row:nth-child(2)').textContent.trim();
+                const inputQuantity = parseInt(itemElement.querySelector('input[type="number"]').value, 10);
+
+                if (inputQuantity <= 0 || isNaN(inputQuantity)) {
+                    alert("정확한 수량을 입력해주세요.");
+                    return;
+                }
+
+                // 이미 추가된 아이템인지 확인하고 수량 업데이트
+                const existedItem = items.find(item => item.productId === productId);
+                if (existedItem) {
+                    if (existedItem.quantity + inputQuantity > stock) {
+                        alert("재고보다 많은 상품은 주문하실 수 없습니다.");
+                        return;
+                    }
+                    existedItem.quantity += inputQuantity;
+                } else {
+                    if (inputQuantity > stock) {
+                        alert("재고보다 많은 상품은 주문하실 수 없습니다.");
+                        return;
+                    }
+                    items.push({productId, stock, productName, quantity: inputQuantity});
+                }
+
+                updateSummary();
+            });
+        });
+    });
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -74,7 +136,12 @@
             border-top-right-radius: 1rem;
             border-bottom-right-radius: 1rem;
             padding: 4vh;
-            color: rgb(65, 65, 65)
+            color: rgb(65, 65, 65);
+        }
+        .item-list {
+            max-height: 50px;
+            overflow-y: auto;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 767px) {
@@ -132,19 +199,12 @@
                 <%= sbHtml.toString() %>
             </ul>
         </div>
-        <div class="col-md-4 summary p-4">
+        <div id="summary" class="col-md-4 summary p-4">
             <div>
                 <h5 class="m-0 p-0"><b>Summary</b></h5>
             </div>
             <hr>
-            <div class="row">
-                <h6 class="p-0">Columbia Nariñó <span class="badge bg-dark text-">2개</span></h6>
-            </div>
-            <div class="row">
-                <h6 class="p-0">Brazil Serra Do Caparaó <span class="badge bg-dark">2개</span></h6>
-            </div>
-            <div class="row">
-                <h6 class="p-0">Columbia Nariñó <span class="badge bg-dark">2개</span></h6>
+            <div class="item-list">
             </div>
             <form>
                 <div class="mb-3">
