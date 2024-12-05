@@ -17,9 +17,12 @@ public class OrderController {
     public String deleteOrder(@RequestParam("order_id") String orderId,
                               Model model) {
 
-        boolean success = orderService.deleteOrder(orderId);
-
-        model.addAttribute("flag", success ? 0 : 1);
+        try {
+            boolean result = orderService.deleteOrder(orderId);
+            model.addAttribute("flag", result ? 0 : 1); // 성공 시 0, 실패 시 1
+        } catch (RuntimeException e) {
+            model.addAttribute("flag", 1); // 실패 플래그 설정
+        }
 
         return "order_delete_ok";
     }
