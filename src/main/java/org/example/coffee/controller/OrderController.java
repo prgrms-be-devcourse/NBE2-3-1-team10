@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,14 +29,20 @@ public class OrderController {
 
     @PostMapping
     public String orderList(@RequestParam String email, Model model) {
-        OrderDTO order = orderDAO.findOrderByEmail(email);
-        if (order == null) {
+        List<OrderDTO> orders = orderDAO.findOrderByEmail(email);
+        if (orders.isEmpty()) {
             return "redirect:/orders";
         }
-        model.addAttribute("order", order);
 
         List<OrderProductDTO> orderProducts = orderDAO.findOrderProductsByEmail(email);
-        model.addAttribute("orderProducts", orderProducts);
+        for (OrderDTO order : orders) {
+            for (OrderProductDTO orderProduct : orderProducts) {
+                if (order.getOrder_id() == orderProduct.getOrder_id()) {
+                    order.getOrderProducts().add(orderProduct);
+                }
+            }
+        }
+        model.addAttribute("orders", orders);
 
         OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(email);
         model.addAttribute("orderSummary", orderSummary);

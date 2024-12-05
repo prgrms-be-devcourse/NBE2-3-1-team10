@@ -15,7 +15,7 @@ public class OrderDAO {
 
     private final OrderMapper orderMapper;
 
-    public OrderDTO findOrderByEmail(String email) {
+    public List<OrderDTO> findOrderByEmail(String email) {
         return orderMapper.findOrderByEmail(email);
     }
 

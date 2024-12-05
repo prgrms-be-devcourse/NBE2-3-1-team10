@@ -24,7 +24,9 @@
             width: 90%;
             box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             border-radius: 1rem;
-            border: transparent
+            border: transparent;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .summary {
@@ -65,8 +67,6 @@
             max-height: 540px;
             overflow-y: auto;
         }
-
-
     </style>
     <title>Hello, world!</title>
 </head>
@@ -74,53 +74,55 @@
 <div class="row justify-content-center m-4">
     <h1 class="text-center">주문 내역</h1>
 </div>
-<div class="card">
-    <div class="row">
-        <div class="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0 table-scrollable">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>상품명</th>
-                    <th>수량</th>
-                    <th>주문금액</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="orderProduct" items="${orderProducts}">
+<c:forEach var="order" items="${orders}">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0 table-scrollable">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>${orderProduct.imagename}</td>
-                        <td>${orderProduct.product_name}</td>
-                        <td>${orderProduct.total_product_quantity}</td>
-                        <td class="text-center price">${orderProduct.total_product_price}</td>
+                        <th></th>
+                        <th>상품명</th>
+                        <th>수량</th>
+                        <th>주문금액</th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-4 summary p-4">
-            <div>
-                <h5 class="m-0 p-0"><b>Summary</b></h5>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="orderProduct" items="${order.orderProducts}">
+                        <tr>
+                            <td>${orderProduct.imagename}</td>
+                            <td>${orderProduct.product_name}</td>
+                            <td>${orderProduct.total_product_quantity}</td>
+                            <td class="text-center price">${orderProduct.total_product_price}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
-            <hr>
+            <div class="col-md-4 summary p-4">
+                <div>
+                    <h5 class="m-0 p-0"><b>Summary</b></h5>
+                </div>
+                <hr>
 
-            <div class="row">
-                <h5 class="col">배송 상태</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.order_status}</span></h5>
+                <div class="row">
+                    <h5 class="col">배송 상태</h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.order_status}</span></h5>
+                </div>
+                <div class="row">
+                    <h5 class="col">총 수량</h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_quantity}</span></h5>
+                </div>
+                <div class="row pt-2 pb-2 border-top">
+                    <h5 class="col">총 금액</h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_price}</span></h5>
+                </div>
+                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/delete?order_id=${order.order_id}'">주문 취소</button>
+                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?email=${email}'">주문 수정</button>
+                <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
             </div>
-            <div class="row">
-                <h5 class="col">총 수량</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_quantity}</span></h5>
-            </div>
-            <div class="row pt-2 pb-2 border-top">
-                <h5 class="col">총 금액</h5>
-                <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_price}</span></h5>
-            </div>
-            <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/delete?order_id=${order.order_id}'">주문 취소</button>
-            <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?email=${email}'">주문 수정</button>
-            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
         </div>
     </div>
-</div>
+</c:forEach>
 </body>
 </html>

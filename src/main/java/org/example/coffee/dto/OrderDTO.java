@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias(value = "orderDto")
@@ -14,7 +17,6 @@ import org.apache.ibatis.type.Alias;
 @Setter
 @ToString
 public class OrderDTO {
-
     private int order_id;
     private String email;
     private String address;
@@ -22,4 +24,5 @@ public class OrderDTO {
     private String order_time;
     private String order_status;
     private int total_price;
+    private List<OrderProductDTO> orderProducts = new ArrayList<>();
 }

@@ -9,7 +9,7 @@
     </select>
 
     <select id="findOrderProductsByEmail" resultType="OrderProductDTO">
-        select p.imagename, p.product_name, (oi.count * p.price) as total_product_price, oi.count as total_product_quantity
+        select o.order_id, p.imagename, p.product_name, (oi.count * p.price) as total_product_price, oi.count as total_product_quantity
         from orders o
         join order_item oi on o.order_id = oi.order_id
         join product p on oi.product_id = p.product_id

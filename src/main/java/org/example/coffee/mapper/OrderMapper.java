@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    OrderDTO findOrderByEmail(String email);
+    List<OrderDTO> findOrderByEmail(String email);
 
     List<OrderProductDTO> findOrderProductsByEmail(String email);
 
