@@ -5,7 +5,7 @@
 <%
     OrderDTO to = (OrderDTO)request.getAttribute( "to" );
 
-    String email = to.getEmail();
+    int order_id = to.getOrder_id();
     String address = to.getAddress();
     String zipcode = to.getZipcode();
 
@@ -76,7 +76,7 @@
         <div class="col-md-12 mt-4 d-flex flex-column align-items-center p-3 pt-0">
             <h1 class="text-center">배송지 변경</h1>
             <form style="width:100%;" action="/orders/modify_ok" name="mfrm" method="post">
-                <input type="hidden" name="email" value="<%=email%>" />
+                <input type="hidden" name="order_id" value="<%=order_id%>" />
                 <div class="mb-3 form-group">
                     <label>주소</label>
                     <input type="text" class="form-control" id="address" name="address" value="<%= address %>">

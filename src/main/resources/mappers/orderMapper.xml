@@ -26,16 +26,16 @@
     </select>
 
     <select id="modify" parameterType="OrderDTO" resultType="OrderDTO">
-        select email, address, zipcode
+        select order_id, address, zipcode
         from orders
-        where email=#{email}
+        where order_id=#{order_id}
     </select>
 
 
     <update id="modifyOk" parameterType="OrderDTO">
         update orders
         set address=#{address}, zipcode=#{zipcode}
-        where email=#{email}
+        where order_id=#{order_id}
     </update>
 
     <delete id="delete" parameterType="orderDto">
