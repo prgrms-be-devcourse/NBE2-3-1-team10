@@ -34,18 +34,14 @@ public class OrderController {
             return "redirect:/orders";
         }
 
-        List<OrderProductDTO> orderProducts = orderDAO.findOrderProductsByEmail(email);
         for (OrderDTO order : orders) {
-            for (OrderProductDTO orderProduct : orderProducts) {
-                if (order.getOrder_id() == orderProduct.getOrder_id()) {
-                    order.getOrderProducts().add(orderProduct);
-                }
-            }
+            List<OrderProductDTO> orderProducts = orderDAO.findOrderProducts(order.getOrder_id());
+            OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(order.getOrder_id());
+            order.setOrderProducts(orderProducts);
+            order.setOrderSummary(orderSummary);
         }
-        model.addAttribute("orders", orders);
 
-        OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(email);
-        model.addAttribute("orderSummary", orderSummary);
+        model.addAttribute("orders", orders);
         model.addAttribute("email", email);
 
         return "order_list";

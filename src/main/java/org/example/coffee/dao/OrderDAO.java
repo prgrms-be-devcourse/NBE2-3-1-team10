@@ -19,12 +19,12 @@ public class OrderDAO {
         return orderMapper.findOrderByEmail(email);
     }
 
-    public List<OrderProductDTO> findOrderProductsByEmail(String email) {
-        return orderMapper.findOrderProductsByEmail(email);
+    public List<OrderProductDTO> findOrderProducts(int orderId) {
+        return orderMapper.findOrderProducts(orderId);
     }
 
-    public OrderSummaryDTO findOrderSummary(String email) {
-        return orderMapper.findOrderSummary(email);
+    public OrderSummaryDTO findOrderSummary(int orderId) {
+        return orderMapper.findOrderSummary(orderId);
     }
 
     public OrderDTO modifyOrder(OrderDTO to) {

@@ -24,5 +24,10 @@ public class OrderDTO {
     private String order_time;
     private String order_status;
     private int total_price;
-    private List<OrderProductDTO> orderProducts = new ArrayList<>();
+    private List<OrderProductDTO> orderProducts;
+    private OrderSummaryDTO orderSummary;
+
+    public void setOrderProducts(List<OrderProductDTO> orderProducts) {
+        this.orderProducts = List.copyOf(orderProducts);
+    }
 }

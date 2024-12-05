@@ -12,9 +12,9 @@ public interface OrderMapper {
 
     List<OrderDTO> findOrderByEmail(String email);
 
-    List<OrderProductDTO> findOrderProductsByEmail(String email);
+    List<OrderProductDTO> findOrderProducts(int orderId);
 
-    OrderSummaryDTO findOrderSummary(String email);
+    OrderSummaryDTO findOrderSummary(int orderId);
 
     OrderDTO modify(OrderDTO to);
     int modifyOk(OrderDTO to);

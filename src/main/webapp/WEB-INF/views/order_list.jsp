@@ -45,7 +45,7 @@
         }
 
         .row {
-            margin: 0
+            margin: 0;
         }
 
         .title b {
@@ -53,7 +53,25 @@
         }
 
         .col {
-            padding: 0 1vh
+            padding: 0 1vh;
+        }
+        .position-relative {
+            position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
+        }
+
+        .position-absolute {
+            position: absolute; /* 부모 요소 내에서 절대 위치 */
+        }
+
+        .top-0 {
+            top: 0; /* 상단에 위치 */
+        }
+        .end-0 {
+            right: 0; /* 우측에 위치 */
+        }
+
+        .m-2 {
+            margin-left: auto; /* 여백 설정 */
         }
 
         img {
@@ -107,15 +125,15 @@
 
                 <div class="row">
                     <h5 class="col">배송 상태</h5>
-                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.order_status}</span></h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.orderSummary.order_status}</span></h5>
                 </div>
                 <div class="row">
                     <h5 class="col">총 수량</h5>
-                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_quantity}</span></h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.orderSummary.total_order_quantity}</span></h5>
                 </div>
                 <div class="row pt-2 pb-2 border-top">
                     <h5 class="col">총 금액</h5>
-                    <h5 class="col text-end"><span class="badge bg-dark text-">${orderSummary.total_order_price}</span></h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.orderSummary.total_order_price}</span></h5>
                 </div>
                 <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/delete?order_id=${order.order_id}'">주문 취소</button>
                 <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?email=${email}'">주문 수정</button>
