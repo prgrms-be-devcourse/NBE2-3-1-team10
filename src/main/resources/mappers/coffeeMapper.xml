@@ -44,4 +44,11 @@
         set imagename=#{imagename}
         where product_id = #{product_id};
     </update>
+
+    <update id="deleteProduct">
+        update product
+        set deleted=1
+        where product_id=#{productId}
+    </update>
+
 </mapper>
