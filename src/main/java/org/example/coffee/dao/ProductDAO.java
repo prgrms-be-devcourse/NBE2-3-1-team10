@@ -71,4 +71,8 @@ public class ProductDAO {
         }
         return flag;
     }
+
+    public int deleteProduct(int productId) {
+        return coffeeMapper.deleteProduct(productId);
+    }
 }
