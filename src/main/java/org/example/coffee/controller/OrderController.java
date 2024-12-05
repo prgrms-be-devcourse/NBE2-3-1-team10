@@ -45,9 +45,9 @@ public class OrderController {
     }
 
     @GetMapping("/modify")
-    public String modifyOrder(String email, Model model) {
+    public String modifyOrder(int order_id, Model model) {
         OrderDTO to = new OrderDTO();
-        to.setEmail(email);
+        to.setOrder_id(order_id);
 
         to = orderDAO.modifyOrder(to);
 
@@ -60,7 +60,7 @@ public class OrderController {
     @PostMapping("/modify_ok")
     public String modifyOrderOk(HttpServletRequest request, Model model) {
         OrderDTO to = new OrderDTO();
-        to.setEmail(request.getParameter("email"));
+        to.setOrder_id(Integer.parseInt(request.getParameter("order_id")));
         to.setAddress(request.getParameter("address"));
         to.setZipcode(request.getParameter("zipcode"));
         System.out.println(to);
@@ -68,6 +68,7 @@ public class OrderController {
         model.addAttribute("flag", orderDAO.modifyOrderOk(to));
         return "order_modify_ok";
     }
+
 
     @GetMapping("/delete")
     public String deleteOrder(@RequestParam("order_id") String orderId,
