@@ -54,6 +54,7 @@ public class AdminController {
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+
         if(!upload.isEmpty()) {
             try {
                 String fileName = upload.getOriginalFilename();
@@ -65,11 +66,10 @@ public class AdminController {
                 fileName = name + "_" + System.nanoTime() + ext;
                 upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
 
-                System.out.println(fileName);
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
-                System.out.println("IO Exception " + e.getMessage());
+                System.out.println("[ERROR] : " + e.getMessage());
             }
         }
         int flag = productDAO.insert(dto);
