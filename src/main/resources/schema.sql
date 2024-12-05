@@ -5,8 +5,7 @@ CREATE TABLE product
     price        int          NOT NULL,
     quantity     int          NOT NULL,
     imagename    varchar(255) NOT NULL,
-    category_id  int          NOT NULL,
-    deleted      tinyint(1)   NOT NULL DEFAULT 0
+    category_id  int          NOT NULL
 );
 
 CREATE TABLE orders
