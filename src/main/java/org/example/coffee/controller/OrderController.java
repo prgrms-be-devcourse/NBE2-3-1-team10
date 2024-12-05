@@ -30,6 +30,7 @@ public class OrderController {
         if (order == null) {
             return "redirect:/orders";
         }
+        model.addAttribute("order", order);
 
         List<OrderProductDTO> orderProducts = orderDAO.findOrderProductsByEmail(email);
         model.addAttribute("orderProducts", orderProducts);
