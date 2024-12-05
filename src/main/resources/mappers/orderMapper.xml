@@ -38,7 +38,7 @@
     </update>
 
     <delete id="delete" parameterType="orderDto">
-        delete from order
+        delete from orders
         where order_id=#{order_id}
     </delete>
 
