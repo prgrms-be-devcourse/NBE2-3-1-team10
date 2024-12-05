@@ -136,7 +136,7 @@
                     <h5 class="col text-end"><span class="badge bg-dark text-">${order.orderSummary.total_order_price}</span></h5>
                 </div>
                 <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/delete?order_id=${order.order_id}'">주문 취소</button>
-                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?email=${email}'">주문 수정</button>
+                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?email=${order.email}'">주문 수정</button>
                 <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
             </div>
         </div>

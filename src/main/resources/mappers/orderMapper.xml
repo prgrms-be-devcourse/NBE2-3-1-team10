@@ -3,7 +3,7 @@
 <mapper namespace="org.example.coffee.mapper.OrderMapper">
 
     <select id="findOrderByEmail" resultType="OrderDTO">
-        select order_id, order_status, total_price
+        select order_id, email, order_status, total_price
         from orders
         where email = #{email}
     </select>

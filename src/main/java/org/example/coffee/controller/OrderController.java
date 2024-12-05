@@ -40,9 +40,7 @@ public class OrderController {
             order.setOrderProducts(orderProducts);
             order.setOrderSummary(orderSummary);
         }
-
         model.addAttribute("orders", orders);
-        model.addAttribute("email", email);
 
         return "order_list";
     }
