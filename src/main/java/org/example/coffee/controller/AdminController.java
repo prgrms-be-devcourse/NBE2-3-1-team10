@@ -88,6 +88,7 @@ public class AdminController {
         ProductDTO productDTO = productDAO.getProduct(to);
 
         model.addAttribute("to", productDTO);
+        // 이미지 불러오는 부분
         model.addAttribute("imagePath", propertyConfig.getUpload() + productDTO.getImagename());
 
         return "admin_product_modify";
