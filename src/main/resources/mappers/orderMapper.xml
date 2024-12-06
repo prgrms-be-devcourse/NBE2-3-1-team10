@@ -38,9 +38,14 @@
         where order_id=#{order_id}
     </update>
 
-    <delete id="delete" parameterType="orderDto">
+    <delete id="delete" parameterType="OrderDTO">
         delete from orders
         where order_id=#{order_id}
     </delete>
+
+    <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="order_id">
+        INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
+        VALUES (#{email}, #{address}, #{zipcode}, #{order_time}, #{order_status}, #{total_price})
+    </insert>
 
 </mapper>

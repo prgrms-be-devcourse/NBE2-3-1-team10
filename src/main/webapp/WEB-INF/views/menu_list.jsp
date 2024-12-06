@@ -48,18 +48,60 @@
 
 <script>
     // 아이템 정보를 저장할 배열
-    const items = [];
+    const orderProducts = [];
     let total_price = 0;
     document.addEventListener('DOMContentLoaded', function() {
         const itemListElement = document.querySelector('.item-list');
         const totalPriceElement = document.querySelector('#total-price');
-        console.log("choice:", totalPriceElement)
+        const paymentBtn = document.querySelector('#paymentBtn');
+
+        paymentBtn.addEventListener('click', async function (event) {
+            event.preventDefault();
+
+            // 배송지 정보
+            const email = document.querySelector('#email').value;
+            const address = document.querySelector('#address').value;
+            const zipcode = document.querySelector('#zipcode').value;
+
+            if (!email || !address || !zipcode) {
+                alert("배송지 정보를 모두 입력해주세요.");
+                return;
+            }
+
+            const orderData = {
+                orderProducts: orderProducts,
+                email: email,
+                address: address,
+                zipcode: zipcode,
+                total_price: total_price
+            }
+
+            try {
+                const response = await fetch('/orders/order', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert("주문이 성공적으로 처리되었습니다.");
+                    window.location.href = '/user/menu_list';
+                } else {
+                    alert(`주문 실패: ${data.message || "주문이 실패했습니다."}`);
+                }
+            } catch (error) {
+                console.error("서버와의 통신 중 오류:", error);
+                alert("서버와의 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        });
 
         // 요약 정보 업데이트
         const updateSummary = () => {
             itemListElement.innerHTML = '';
             total_price = 0; // 초기화
-            items.forEach(item => {
+            orderProducts.forEach(item => {
                 const itemSummary = document.createElement('div');
                 itemSummary.classList.add('row');
                 itemSummary.innerHTML = '<h6 class="p-0">' + item.productName + ' <span class="badge bg-dark">' + item.quantity + '개</span>' +
@@ -71,7 +113,7 @@
 
                 const cancelButton = itemSummary.querySelector('.cancel-btn');
                 cancelButton.addEventListener('click', () => {
-                    items.splice(items.indexOf(item), 1);
+                    orderProducts.splice(orderProducts.indexOf(item), 1);
                     updateSummary();
                 });
             });
@@ -98,7 +140,7 @@
                 }
 
                 // 이미 추가된 아이템인지 확인하고 수량 업데이트
-                const existedItem = items.find(item => item.productId === productId);
+                const existedItem = orderProducts.find(item => item.productId === productId);
                 if (existedItem) {
                     if (existedItem.quantity + inputQuantity > stock) {
                         alert("재고보다 많은 상품은 주문하실 수 없습니다.");
@@ -110,7 +152,7 @@
                         alert("재고보다 많은 상품은 주문하실 수 없습니다.");
                         return;
                     }
-                    items.push({productId, stock, productName, price, quantity: inputQuantity});
+                    orderProducts.push({productId, stock, productName, price, quantity: inputQuantity});
                 }
                 updateSummary();
             });
@@ -227,8 +269,8 @@
                     <input type="text" class="form-control mb-1" id="address">
                 </div>
                 <div class="mb-3">
-                    <label for="postcode" class="form-label">우편번호</label>
-                    <input type="text" class="form-control" id="postcode">
+                    <label for="zipcode" class="form-label">우편번호</label>
+                    <input type="text" class="form-control" id="zipcode">
                 </div>
                 <div>당일 오후 2시 이후의 주문은 다음날 배송을 시작합니다.</div>
             </form>
@@ -236,7 +278,7 @@
                 <h5 class="col">총금액</h5>
                 <h5 class="col text-end" id="total-price">0원</h5>
             </div>
-            <button class="btn btn-dark col-12" style="margin-bottom: 10px;">결제하기</button>
+            <button class="btn btn-dark col-12" id="paymentBtn" style="margin-bottom: 10px;">결제하기</button>
             <button type="submit" class="btn btn-dark col-12" onclick="location.href='/orders'">주문내역확인하기</button>
         </div>
     </div>

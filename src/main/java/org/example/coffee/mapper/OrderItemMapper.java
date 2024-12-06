@@ -11,4 +11,6 @@ public interface OrderItemMapper {
     ArrayList<OrderItemDTO> getOrderItems(OrderItemDTO dto);
 
     int delete(OrderItemDTO dto);
+
+    int insert(OrderItemDTO dto);
 }

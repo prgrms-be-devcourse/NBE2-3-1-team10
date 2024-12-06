@@ -19,4 +19,6 @@ public interface OrderMapper {
     OrderDTO modify(OrderDTO to);
     int modifyOk(OrderDTO to);
     int delete(OrderDTO dto);
+
+    void add(OrderDTO to);
 }

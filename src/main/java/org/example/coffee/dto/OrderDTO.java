@@ -1,13 +1,9 @@
 package org.example.coffee.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,7 +17,7 @@ public class OrderDTO {
     private String email;
     private String address;
     private String zipcode;
-    private String order_time;
+    private LocalDateTime order_time;
     private String order_status;
     private int total_price;
     private List<OrderProductDTO> orderProducts;

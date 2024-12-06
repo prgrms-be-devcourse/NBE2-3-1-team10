@@ -1,18 +1,22 @@
 package org.example.coffee.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.example.coffee.dao.OrderDAO;
-import org.example.coffee.dto.OrderDTO;
-import org.example.coffee.dto.OrderProductDTO;
-import org.example.coffee.dto.OrderSummaryDTO;
-import org.example.coffee.service.OrderService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.example.coffee.dao.OrderDAO;
+import org.example.coffee.dao.OrderItemDAO;
+import org.example.coffee.dto.*;
+import org.example.coffee.service.OrderService;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/orders")
@@ -21,6 +25,7 @@ public class OrderController {
 
     private final OrderDAO orderDAO;
     private final OrderService orderService;
+    private final OrderItemDAO orderItemDAO;
 
     @GetMapping
     public String userCheckForm() {
@@ -57,7 +62,6 @@ public class OrderController {
         return "order_modify";
     }
 
-
     @PostMapping("/modify_ok")
     public String modifyOrderOk(HttpServletRequest request, Model model) {
         OrderDTO to = new OrderDTO();
@@ -70,7 +74,6 @@ public class OrderController {
         return "order_modify_ok";
     }
 
-
     @GetMapping("/delete")
     public String deleteOrder(@RequestParam("order_id") String orderId,
                               Model model) {
@@ -82,5 +85,41 @@ public class OrderController {
             model.addAttribute("flag", 1); // 실패 플래그 설정
         }
         return "order_delete_ok";
+    }
+
+    @PostMapping("/order")
+    public ResponseEntity<Map<String, Object>> createOrder(@RequestBody RequestOrderDTO request, Model model) {
+
+        Map<String, Object> response = new HashMap<>();
+        int flag = 0;
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setEmail(request.getEmail());
+        orderDTO.setAddress(request.getAddress());
+        orderDTO.setZipcode(request.getZipcode());
+        orderDTO.setOrder_time(LocalDateTime.now());
+        orderDTO.setOrder_status("출고 전");
+        orderDTO.setTotal_price(request.getTotal_price());
+        orderDAO.add(orderDTO);
+
+        System.out.println(orderDTO.getOrder_id());
+        for (RequestOrderProductDTO requestOrderProductDTO : request.getOrderProducts()) {
+            OrderItemDTO orderItemDTO = new OrderItemDTO();
+            orderItemDTO.setOrder_id(orderDTO.getOrder_id());
+            orderItemDTO.setProduct_id(requestOrderProductDTO.getProductId());
+            orderItemDTO.setCount(requestOrderProductDTO.getQuantity());
+
+            flag = orderItemDAO.insert(orderItemDTO);
+
+            if (flag == 1) {
+                response.put("success", false);
+                response.put("message", "존재하지 않는 상품입니다.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        }
+
+        response.put("success", true);
+        response.put("message", "Order created successfully");
+        return ResponseEntity.ok(response);
+
     }
 }
