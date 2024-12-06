@@ -1,10 +1,11 @@
 package org.example.coffee.dao;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.RequiredArgsConstructor;
 import org.example.coffee.dto.OrderDTO;
 import org.example.coffee.dto.OrderProductDTO;
 import org.example.coffee.mapper.OrderMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class OrderDAO {
         }
 
         return flag;
+    }
+
+    public void add(OrderDTO dto) {
+        orderMapper.add(dto);
     }
 }
 
