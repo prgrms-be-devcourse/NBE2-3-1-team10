@@ -1,7 +1,6 @@
 package org.example.coffee.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.coffee.dto.OrderItemDTO;
 import org.example.coffee.dto.ProductDTO;
 
 import java.util.ArrayList;
@@ -22,6 +21,4 @@ public interface CoffeeMapper {
     int updateImage(ProductDTO dto);
 
     int deleteProduct(int productId);
-
-    int reduceQuantity(OrderItemDTO orderItemDTO);
 }

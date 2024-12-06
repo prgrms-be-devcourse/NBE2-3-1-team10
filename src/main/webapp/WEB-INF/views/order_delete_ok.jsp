@@ -9,7 +9,7 @@
     if (flag == 0) {
         // 정상
         out.println("alert('주문취소 성공');");
-        out.println("location.href='/orders';");
+        out.println("location.href='./order_list';");
     } else {
         // 비정상
         out.println("alert('주문취소 실패');");
