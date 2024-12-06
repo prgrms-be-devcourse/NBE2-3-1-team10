@@ -91,6 +91,7 @@ public class OrderController {
         } catch (RuntimeException e) {
             model.addAttribute("flag", 1); // 실패 플래그 설정
         }
+
         return "order_delete_ok";
     }
 
@@ -103,6 +104,7 @@ public class OrderController {
         orderDTO.setAddress(request.getAddress());
         orderDTO.setZipcode(request.getZipcode());
         orderDTO.setOrder_time(LocalDateTime.now());
+        orderDTO.setOrder_status("출고 전");
         orderDTO.setTotal_price(request.getTotal_price());
         orderDAO.add(orderDTO);
 

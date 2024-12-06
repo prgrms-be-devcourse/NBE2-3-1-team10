@@ -12,16 +12,6 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
-    /*
-    @RequestMapping("hello")
-    public String hello() {
-
-        return "hello";
-    }
-
-     */
-
     @Autowired
     private ProductDAO productDAO;
 
@@ -33,5 +23,4 @@ public class UserController {
 
         return "menu_list";
     }
-
 }
