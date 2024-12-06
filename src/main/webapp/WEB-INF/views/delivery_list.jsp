@@ -2,8 +2,8 @@
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.example.coffee.dto.OrderDTO" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 
 <%
@@ -18,7 +18,9 @@
         String email = to.getEmail();
         String address = to.getAddress();
         String zipcode = to.getZipcode();
-        String order_time = to.getOrder_time();
+        LocalDateTime localDateTime = to.getOrder_time();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String order_time = localDateTime.format(formatter);
         String order_status = to.getOrder_status();
         int total_price = to.getTotal_price();
 
