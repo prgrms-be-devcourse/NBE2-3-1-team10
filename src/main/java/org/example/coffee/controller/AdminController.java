@@ -58,17 +58,6 @@ public class AdminController {
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
 
-
-        String category = request.getParameter("category");
-
-//        if (category.equals("coffee")) {
-//            dto.setCategory_id(1);
-//        } else if (category.equals("coffeeBean")) {
-//            dto.setCategory_id(2);
-//        } else if (category.equals("tea")) {
-//            dto.setCategory_id(3);
-//        }
-
         if(!upload.isEmpty()) {
             try {
                 String fileName = upload.getOriginalFilename();
@@ -79,14 +68,7 @@ public class AdminController {
 
                 fileName = name + "_" + System.nanoTime() + ext;
 
-                if (category.equals("1")) {
-                    upload.transferTo(new File( homeDir + path +"/coffee", fileName));
-                } else if (category.equals("2")) {
-                    upload.transferTo(new File(homeDir + path + "/coffeebean", fileName));
-                } else if (category.equals("3")) {
-                    upload.transferTo(new File(homeDir + path + "/tea", fileName));
-                }
-
+                upload.transferTo(new File( homeDir + path + fileName));
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
@@ -95,8 +77,6 @@ public class AdminController {
         }
 
         int flag = productDAO.insert(dto);
-
-        System.out.println(flag);
 
         model.addAttribute("flag", flag);
 
@@ -111,25 +91,7 @@ public class AdminController {
         to.setProduct_id(Integer.parseInt(productId));
         ProductDTO productDTO = productDAO.getProduct(to);
         model.addAttribute("to", productDTO);
-        model.addAttribute("imagePath", getImagePath(productDTO));
+        model.addAttribute("imagePath", imagePath);
         return "admin_product_modify";
-    }
-
-    // 사진 이미지 가져오는 메서드 (컨트롤러에서 분리할 필요 있음)
-    public String getImagePath(ProductDTO dto) {
-        String fileName;
-        switch (dto.getCategory_id()) {
-            case 1:
-                fileName = "/coffee/";
-                break;
-            case 2:
-                fileName = "/coffeeBean/";
-                break;
-            case 3:
-                fileName = "/tea/";
-            default:
-                fileName = "";
-        }
-        return imagePath + fileName + dto.getImagename();
     }
 }
