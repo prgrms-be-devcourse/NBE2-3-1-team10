@@ -99,7 +99,6 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th></th>
                         <th>상품명</th>
                         <th>수량</th>
                         <th>주문금액</th>
@@ -108,7 +107,6 @@
                     <tbody>
                     <c:forEach var="orderProduct" items="${order.orderProducts}">
                         <tr>
-                            <td>${orderProduct.imagename}</td>
                             <td>${orderProduct.product_name}</td>
                             <td>${orderProduct.total_product_quantity}</td>
                             <td class="text-center price">${orderProduct.total_product_price}</td>
