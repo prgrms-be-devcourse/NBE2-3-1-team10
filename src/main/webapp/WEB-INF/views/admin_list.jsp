@@ -40,7 +40,7 @@
         sb.append("<td>");
         sb.append("<input type=\"button\" value=\"상품수정\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./modify?productId=" + productId + "'\" />");
         sb.append("&nbsp;&nbsp;");
-        sb.append("<input type=\"button\" value=\"상품삭제\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"confirmDelete('" + productId + "')\" />");
+        sb.append("<input type=\"button\" value=\"상품삭제\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./delete?productId=" + productId + "'\" />");
         sb.append("</td>");
         sb.append("</tr>");
     }
@@ -54,17 +54,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="/css/board.css">
-
-    <script>
-        function confirmDelete(productId) {
-            // 경고창 띄우기
-            if (confirm("정말 삭제하시겠습니까?")) {
-                // 사용자가 확인(Yes)을 누르면 해당 URL로 이동
-                location.href = './delete?productId=' + productId;
-            }
-            // 아니오(No)를 누르면 아무 동작도 하지 않음
-        }
-    </script>
 </head>
 <body>
 <!-- 상품 목록을 가져온 후 생성, 수정, 삭제를 하는 관리자 페이지 -->
@@ -99,5 +88,6 @@
         <!--//게시판-->
     </div>
 </div>
+
 </body>
 </html>

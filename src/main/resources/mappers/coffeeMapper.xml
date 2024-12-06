@@ -51,4 +51,10 @@
         set deleted=1
         where product_id=#{productId}
     </update>
+
+    <update id="reduceQuantity" parameterType="dto">
+        update product
+        set quantity=quantity-#{count}
+        where product_id = #{product_id};
+    </update>
 </mapper>
