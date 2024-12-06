@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 
 <!doctype html>
 <html lang="en">
@@ -122,7 +123,6 @@
                     <h5 class="m-0 p-0"><b>Summary</b></h5>
                 </div>
                 <hr>
-
                 <div class="row">
                     <h5 class="col">배송 상태</h5>
                     <h5 class="col text-end"><span class="badge bg-dark text-">${order.order_status}</span></h5>
@@ -135,8 +135,26 @@
                     <h5 class="col">총 금액</h5>
                     <h5 class="col text-end"><span class="badge bg-dark text-">${order.total_price}</span></h5>
                 </div>
-                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/delete?order_id=${order.order_id}'">주문 취소</button>
-                <button class="btn btn-dark col-12 mb-3" onclick="location.href='/orders/modify?order_id=${order.order_id}'">주문 수정</button>
+
+                <button class="btn btn-dark col-12 mb-3"
+                        onclick="confirmAction('/orders/delete?order_id=${order.order_id}')"
+                    ${order.order_status == '출고 후' ? 'disabled' : ''}>
+                    주문 취소
+                </button>
+                <button class="btn btn-dark col-12 mb-3"
+                        onclick="location.href='/orders/modify?order_id=${order.order_id}'"
+                    ${order.order_status == '출고 후' ? 'disabled' : ''}>
+                    주문 수정
+                </button>
+
+                <script>
+                    function confirmAction(url) {
+                        // 경고창 표시
+                        if (confirm("정말 취소하시겠습니까?")) {
+                            location.href = url;
+                        }
+                    }
+                </script>
                 <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
             </div>
         </div>
