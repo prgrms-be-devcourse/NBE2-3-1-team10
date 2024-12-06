@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,7 +24,6 @@ public class OrderDTO {
     private String order_status;
     private int total_price;
     private List<OrderProductDTO> orderProducts;
-    private OrderSummaryDTO orderSummary;
 
     public void setOrderProducts(List<OrderProductDTO> orderProducts) {
         this.orderProducts = List.copyOf(orderProducts);

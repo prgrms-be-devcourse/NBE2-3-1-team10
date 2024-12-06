@@ -5,14 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.coffee.dao.OrderDAO;
 import org.example.coffee.dto.OrderDTO;
 import org.example.coffee.dto.OrderProductDTO;
-import org.example.coffee.dto.OrderSummaryDTO;
 import org.example.coffee.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,9 +40,7 @@ public class OrderController {
 
         for (OrderDTO order : orders) {
             List<OrderProductDTO> orderProducts = orderDAO.findOrderProducts(order.getOrder_id());
-            OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(order.getOrder_id());
             order.setOrderProducts(orderProducts);
-            order.setOrderSummary(orderSummary);
         }
         model.addAttribute("orders", orders);
 
