@@ -2,9 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.example.coffee.mapper.OrderMapper">
 
-    <delete id="delete" parameterType="orderDto">
-        delete from order
+    <select id="findOrderByEmail" resultType="OrderDTO">
+        select order_id, email, order_status, total_price
+        from orders
+        where email = #{email}
+    </select>
+
+    <select id="findOrderProducts" resultType="OrderProductDTO">
+        select p.imagename, p.product_name, (oi.count * p.price) as total_product_price, oi.count as total_product_quantity
+        from orders o
+                 join order_item oi on o.order_id = oi.order_id
+                 join product p on oi.product_id = p.product_id
+        where o.order_id = #{orderId}
+    </select>
+
+    <select id="modify" parameterType="OrderDTO" resultType="OrderDTO">
+        select order_id, address, zipcode
+        from orders
+        where order_id=#{order_id}
+    </select>
+
+    <update id="modifyOk" parameterType="OrderDTO">
+        update orders
+        set address=#{address}, zipcode=#{zipcode}
+        where order_id=#{order_id}
+    </update>
+
+    <delete id="delete" parameterType="OrderDTO">
+        delete from orders
         where order_id=#{order_id}
     </delete>
+
+    <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="order_id">
+        INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
+        VALUES (#{email}, #{address}, #{zipcode}, #{order_time}, #{order_status}, #{total_price})
+    </insert>
 
 </mapper>

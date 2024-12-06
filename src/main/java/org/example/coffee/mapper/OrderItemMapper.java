@@ -1,3 +1,4 @@
+
 package org.example.coffee.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,4 +12,6 @@ public interface OrderItemMapper {
     ArrayList<OrderItemDTO> getOrderItems(OrderItemDTO dto);
 
     int delete(OrderItemDTO dto);
+
+    int insert(OrderItemDTO dto);
 }

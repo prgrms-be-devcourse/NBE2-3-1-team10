@@ -55,6 +55,7 @@ public class AdminController {
         dto.setProduct_name(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
 
         if(!upload.isEmpty()) {
             try {
