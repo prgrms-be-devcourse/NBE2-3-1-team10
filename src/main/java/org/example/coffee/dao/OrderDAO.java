@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import org.example.coffee.dto.OrderDTO;
 import org.example.coffee.dto.OrderProductDTO;
-import org.example.coffee.dto.OrderSummaryDTO;
 import org.example.coffee.mapper.OrderMapper;
 
 import java.util.List;
@@ -22,10 +21,6 @@ public class OrderDAO {
 
     public List<OrderProductDTO> findOrderProducts(int orderId) {
         return orderMapper.findOrderProducts(orderId);
-    }
-
-    public OrderSummaryDTO findOrderSummary(int orderId) {
-        return orderMapper.findOrderSummary(orderId);
     }
 
     public OrderDTO modifyOrder(OrderDTO to) {

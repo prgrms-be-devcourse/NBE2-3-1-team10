@@ -16,21 +16,11 @@
         where o.order_id = #{orderId}
     </select>
 
-    <select id="findOrderSummary" resultType="OrderSummaryDTO">
-        select o.order_status, sum(oi.count) as total_order_quantity, sum(oi.count * p.price) as total_order_price
-        from orders o
-        join order_item oi on o.order_id = oi.order_id
-        join product p on oi.product_id = p.product_id
-        where o.order_id = #{orderId}
-
-    </select>
-
     <select id="modify" parameterType="OrderDTO" resultType="OrderDTO">
         select order_id, address, zipcode
         from orders
         where order_id=#{order_id}
     </select>
-
 
     <update id="modifyOk" parameterType="OrderDTO">
         update orders

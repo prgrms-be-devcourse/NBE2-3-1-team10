@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +41,13 @@
     <title>Hello, world!</title>
 </head>
 <body class="container-fluid">
+
+<c:if test="${param.notExist eq 'true'}">
+    <script>
+        alert('주문 내역이 존재하지 않습니다.');
+    </script>
+</c:if>
+
 <div class="card">
     <div class="row justify-content-center">
         <div class="col-md-12 mt-4 d-flex flex-column align-items-center p-3 pt-0">

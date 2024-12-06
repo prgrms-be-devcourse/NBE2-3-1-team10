@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.example.coffee.dao.OrderDAO;
+
 import org.example.coffee.dao.OrderItemDAO;
 import org.example.coffee.dto.*;
 import org.example.coffee.service.OrderService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import org.example.coffee.service.OrderService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 import java.util.Map;
 
@@ -33,17 +37,20 @@ public class OrderController {
     }
 
     @PostMapping
-    public String orderList(@RequestParam String email, Model model) {
+    public String orderList(
+            @RequestParam String email,
+            Model model,
+            RedirectAttributes redirectAttributes
+    ) {
         List<OrderDTO> orders = orderDAO.findOrderByEmail(email);
         if (orders.isEmpty()) {
+            redirectAttributes.addAttribute("notExist", true);
             return "redirect:/orders";
         }
 
         for (OrderDTO order : orders) {
             List<OrderProductDTO> orderProducts = orderDAO.findOrderProducts(order.getOrder_id());
-            OrderSummaryDTO orderSummary = orderDAO.findOrderSummary(order.getOrder_id());
             order.setOrderProducts(orderProducts);
-            order.setOrderSummary(orderSummary);
         }
         model.addAttribute("orders", orders);
 
