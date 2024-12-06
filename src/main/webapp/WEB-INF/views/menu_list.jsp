@@ -62,14 +62,20 @@
             items.forEach(item => {
                 const itemSummary = document.createElement('div');
                 itemSummary.classList.add('row');
-                itemSummary.innerHTML = '<h6 class="p-0">' + item.productName + ' <span class="badge bg-dark">' + item.quantity + '개</span></h6>';
+                itemSummary.innerHTML = '<h6 class="p-0">' + item.productName + ' <span class="badge bg-dark">' + item.quantity + '개</span>' +
+                    ' <span class="badge bg-danger ms-2 cancel-btn badge-sm" style="cursor: pointer;">취소</span></h6>';
+
                 itemListElement.appendChild(itemSummary);
                 // 결제 금액 반영
-                total_price += (item.price * item.quantity); // 임시 테스트 값 추가
+                total_price += (item.price * item.quantity);
+
+                const cancelButton = itemSummary.querySelector('.cancel-btn');
+                cancelButton.addEventListener('click', () => {
+                    items.splice(items.indexOf(item), 1);
+                    updateSummary();
+                });
             });
             totalPriceElement.textContent = total_price.toLocaleString() + ' 원';
-            console.log("DOM 업데이트 확인:", totalPriceElement.textContent);
-
         };
 
         // 추가 버튼 클릭 시 동작
