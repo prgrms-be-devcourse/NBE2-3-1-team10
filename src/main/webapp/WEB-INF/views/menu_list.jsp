@@ -4,7 +4,6 @@
 <%
     ArrayList<ProductDTO> menu_list = (ArrayList<ProductDTO>) request.getAttribute("menu_list");
     int totalMenu = menu_list.size();
-
     StringBuilder sbHtml = new StringBuilder();
 
     for (ProductDTO to : menu_list) {
@@ -44,27 +43,33 @@
         sbHtml.append("<a class='btn btn-small btn-outline-dark' href=''>추가</a>");
         sbHtml.append("</div>");
         sbHtml.append("</li>");
-
     }
-
-
 %>
 
 <script>
     // 아이템 정보를 저장할 배열
     const items = [];
+    let total_price = 0;
     document.addEventListener('DOMContentLoaded', function() {
         const itemListElement = document.querySelector('.item-list');
+        const totalPriceElement = document.querySelector('#total-price');
+        console.log("choice:", totalPriceElement)
 
         // 요약 정보 업데이트
         const updateSummary = () => {
             itemListElement.innerHTML = '';
+            total_price = 0; // 초기화
             items.forEach(item => {
                 const itemSummary = document.createElement('div');
                 itemSummary.classList.add('row');
                 itemSummary.innerHTML = '<h6 class="p-0">' + item.productName + ' <span class="badge bg-dark">' + item.quantity + '개</span></h6>';
                 itemListElement.appendChild(itemSummary);
+                // 결제 금액 반영
+                total_price += (item.price * item.quantity); // 임시 테스트 값 추가
             });
+            totalPriceElement.textContent = total_price.toLocaleString() + ' 원';
+            console.log("DOM 업데이트 확인:", totalPriceElement.textContent);
+
         };
 
         // 추가 버튼 클릭 시 동작
@@ -78,6 +83,7 @@
                 const productId = parseInt(itemElement.querySelector('input[name="productId"]').value, 10);
                 const stock = parseInt(itemElement.querySelector('input[name="stock"]').value, 10);
                 const productName = itemElement.querySelector('.row:nth-child(2)').textContent.trim();
+                const price = parseInt(itemElement.querySelector('.price').textContent.trim(), 10);
                 const inputQuantity = parseInt(itemElement.querySelector('input[type="number"]').value, 10);
 
                 if (inputQuantity <= 0 || isNaN(inputQuantity)) {
@@ -98,9 +104,8 @@
                         alert("재고보다 많은 상품은 주문하실 수 없습니다.");
                         return;
                     }
-                    items.push({productId, stock, productName, quantity: inputQuantity});
+                    items.push({productId, stock, productName, price, quantity: inputQuantity});
                 }
-
                 updateSummary();
             });
         });
@@ -223,7 +228,7 @@
             </form>
             <div class="row pt-2 pb-2 border-top">
                 <h5 class="col">총금액</h5>
-                <h5 class="col text-end">15000원</h5>
+                <h5 class="col text-end" id="total-price">0원</h5>
             </div>
             <button class="btn btn-dark col-12" style="margin-bottom: 10px;">결제하기</button>
             <button type="submit" class="btn btn-dark col-12" onclick="location.href='/orders'">주문내역확인하기</button>
