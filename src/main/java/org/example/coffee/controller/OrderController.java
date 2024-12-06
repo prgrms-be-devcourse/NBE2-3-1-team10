@@ -84,7 +84,6 @@ public class OrderController {
     @GetMapping("/delete")
     public String deleteOrder(@RequestParam("order_id") String orderId,
                               Model model) {
-
         try {
             boolean result = orderService.deleteOrder(orderId);
             model.addAttribute("flag", result ? 0 : 1); // 성공 시 0, 실패 시 1
@@ -103,6 +102,7 @@ public class OrderController {
         orderDTO.setAddress(request.getAddress());
         orderDTO.setZipcode(request.getZipcode());
         orderDTO.setOrder_time(LocalDateTime.now());
+        orderDTO.setOrder_status("출고 전");
         orderDTO.setTotal_price(request.getTotal_price());
         orderDAO.add(orderDTO);
 
