@@ -10,6 +10,7 @@ import org.example.coffee.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,14 @@ public class OrderController {
     }
 
     @PostMapping
-    public String orderList(@RequestParam String email, Model model) {
+    public String orderList(
+            @RequestParam String email,
+            Model model,
+            RedirectAttributes redirectAttributes
+    ) {
         List<OrderDTO> orders = orderDAO.findOrderByEmail(email);
         if (orders.isEmpty()) {
+            redirectAttributes.addAttribute("notExist", true);
             return "redirect:/orders";
         }
 
