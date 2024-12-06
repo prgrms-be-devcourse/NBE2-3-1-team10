@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.coffee.dao.OrderDAO;
 
 import org.example.coffee.dao.OrderItemDAO;
+import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.*;
 import org.example.coffee.service.OrderService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import org.example.coffee.service.OrderService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -30,6 +30,7 @@ public class OrderController {
     private final OrderDAO orderDAO;
     private final OrderService orderService;
     private final OrderItemDAO orderItemDAO;
+    private final ProductDAO productDAO;
 
     @GetMapping
     public String userCheckForm() {
@@ -59,11 +60,10 @@ public class OrderController {
 
     @GetMapping("/modify")
     public String modifyOrder(int order_id, Model model) {
+
         OrderDTO to = new OrderDTO();
         to.setOrder_id(order_id);
-
         to = orderDAO.modifyOrder(to);
-
         model.addAttribute("to", to);
 
         return "order_modify";
@@ -96,7 +96,6 @@ public class OrderController {
 
     @PostMapping("/order")
     public ResponseEntity<Map<String, Object>> createOrder(@RequestBody RequestOrderDTO request, Model model) {
-
         Map<String, Object> response = new HashMap<>();
         int flag = 0;
         OrderDTO orderDTO = new OrderDTO();
@@ -104,7 +103,6 @@ public class OrderController {
         orderDTO.setAddress(request.getAddress());
         orderDTO.setZipcode(request.getZipcode());
         orderDTO.setOrder_time(LocalDateTime.now());
-        orderDTO.setOrder_status("출고 전");
         orderDTO.setTotal_price(request.getTotal_price());
         orderDAO.add(orderDTO);
 
@@ -116,6 +114,7 @@ public class OrderController {
             orderItemDTO.setCount(requestOrderProductDTO.getQuantity());
 
             flag = orderItemDAO.insert(orderItemDTO);
+            productDAO.reduceQuantity(orderItemDTO);
 
             if (flag == 1) {
                 response.put("success", false);
@@ -127,6 +126,5 @@ public class OrderController {
         response.put("success", true);
         response.put("message", "Order created successfully");
         return ResponseEntity.ok(response);
-
     }
 }
