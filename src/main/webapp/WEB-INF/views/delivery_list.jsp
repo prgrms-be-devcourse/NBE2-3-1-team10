@@ -10,10 +10,15 @@
     ArrayList<OrderDTO> lists = (ArrayList<OrderDTO>) request.getAttribute( "lists" );
 
     int totalRecord = lists.size();
+    ArrayList<Integer> orderIds = new ArrayList<Integer>();
+
 
     StringBuilder sbHtml = new StringBuilder();
 
     for( OrderDTO to : lists ) {
+
+        orderIds.add(to.getOrder_id());
+
         int order_id = to.getOrder_id();
         String email = to.getEmail();
         String address = to.getAddress();
@@ -34,6 +39,8 @@
         sbHtml.append( "<td>&nbsp;</td>" );
         sbHtml.append( "</tr>" );
     }
+
+    System.out.println(orderIds);
 %>
 
 <!DOCTYPE html>
@@ -79,11 +86,11 @@
 <body>
 <div class="con_title" style="text-align: center; margin-top: 50px;">
     <h2>오늘 배송할 주문 목록</h2>
-    <form action="" method="post" name="deliveryForm">
+    <form action="delivery_ok" method="post" name="deliveryForm">
+        <input type="hidden" name="orderIds" value="<%=orderIds%>">
         <div class="right-action">
             <input type="button" id="dbtn" value="출고" class="action-btn"/>
         </div>
-
     </form>
 </div>
 <div class="con_txt">

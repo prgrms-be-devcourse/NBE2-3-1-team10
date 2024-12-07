@@ -10,4 +10,10 @@
           and order_time < date_format(now(), '%Y-%m-%d 14:00:00')
         ]]>
     </select>
+
+    <update id="updateOrderStatus" parameterType="orderDto">
+        UPDATE orders
+        SET order_status = 'del_after'
+        WHERE order_id = #{order_id}
+    </update>
 </mapper>
