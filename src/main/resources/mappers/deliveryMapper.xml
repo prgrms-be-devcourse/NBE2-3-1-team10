@@ -13,7 +13,7 @@
 
     <update id="updateOrderStatus" parameterType="orderDto">
         UPDATE orders
-        SET order_status = 'del_after'
+        SET order_status = '출고 후'
         WHERE order_id = #{order_id}
     </update>
 </mapper>

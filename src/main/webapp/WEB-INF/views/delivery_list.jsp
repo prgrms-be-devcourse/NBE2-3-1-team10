@@ -2,9 +2,9 @@
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.example.coffee.dto.OrderDTO" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.net.URLEncoder" %>
 
 
 <%
@@ -81,6 +81,13 @@
                 <%= sbHtml.toString() %>
 
             </table>
+        </div>
+
+        <div class="btn_area">
+            <div class="align_right">
+                <input type="button" value="출고" class="btn_write btn_txt01" style="cursor: pointer;"
+                       onclick="location.href='delivery_ok?orderIds=<%= URLEncoder.encode(orderIds.toString(), "UTF-8") %>'" />
+            </div>
         </div>
     </div>
 </div>
