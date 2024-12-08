@@ -55,7 +55,7 @@
         const totalRecord = <%=totalRecord%>;
         window.onload = function () {
             document.getElementById('dbtn').onclick = function () {
-                alert('총 ' + totalRecord + '건의 주문이 출고 처리되었습니다.');
+                alert('총 ' + totalRecord + '건의 주문이 출고 처리 되었습니다.');
                 document.deliveryForm.submit();
             };
         };
