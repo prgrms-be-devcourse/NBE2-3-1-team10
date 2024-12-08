@@ -2,9 +2,8 @@
          pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.example.coffee.dto.OrderDTO" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="java.net.URLEncoder" %>
 
 
 <%
@@ -42,6 +41,8 @@
         sbHtml.append( "<td>&nbsp;</td>" );
         sbHtml.append( "</tr>" );
     }
+
+    System.out.println(orderIds);
 %>
 
 <!DOCTYPE html>
@@ -52,11 +53,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="../../css/board.css">
+    <script type="text/javascript">
+        const totalRecord = <%=totalRecord%>;
+        window.onload = function () {
+            document.getElementById('dbtn').onclick = function () {
+                alert('총 ' + totalRecord + '건의 주문이 출고 처리 되었습니다.');
+                document.deliveryForm.submit();
+            };
+        };
+    </script>
+    <style>
+        .right-action {
+            text-align: right;
+            margin: 10px 20px;
+        }
+
+        .action-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+
 </head>
 
 <body>
 <div class="con_title" style="text-align: center; margin-top: 50px;">
     <h2>오늘 배송할 주문 목록</h2>
+    <form action="delivery_ok" method="post" name="deliveryForm">
+        <input type="hidden" name="orderIds" value="<%=orderIds%>">
+        <div class="right-action">
+            <input type="button" id="dbtn" value="출고" class="action-btn"/>
+        </div>
+    </form>
 </div>
 <div class="con_txt">
     <div class="contents_sub">
@@ -81,13 +118,6 @@
                 <%= sbHtml.toString() %>
 
             </table>
-        </div>
-
-        <div class="btn_area">
-            <div class="align_right">
-                <input type="button" value="출고" class="btn_write btn_txt01" style="cursor: pointer;"
-                       onclick="location.href='delivery_ok?orderIds=<%= URLEncoder.encode(orderIds.toString(), "UTF-8") %>'" />
-            </div>
         </div>
     </div>
 </div>
