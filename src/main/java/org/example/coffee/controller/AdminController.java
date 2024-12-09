@@ -52,10 +52,10 @@ public class AdminController {
                              Model model) {
 
         ProductDTO dto = new ProductDTO();
-        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setProductName(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+        dto.setCategoryId(Integer.parseInt(request.getParameter("category")));
 
         if(!upload.isEmpty()) {
             try {
@@ -84,7 +84,7 @@ public class AdminController {
     public String modifyProduct(@RequestParam String productId, Model model) {
 
         ProductDTO to = new ProductDTO();
-        to.setProduct_id(Integer.parseInt(productId));
+        to.setProductId(Integer.parseInt(productId));
         ProductDTO productDTO = productDAO.getProduct(to);
 
         model.addAttribute("to", productDTO);
@@ -100,11 +100,11 @@ public class AdminController {
                                   Model model
     ) {
         ProductDTO dto = new ProductDTO();
-        dto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
-        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setProductId(Integer.parseInt(request.getParameter("product_id")));
+        dto.setProductName(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+        dto.setCategoryId(Integer.parseInt(request.getParameter("category")));
         int deleteFlage = Integer.parseInt(request.getParameter("flag"));
         try {
             if (!upload.isEmpty()) {

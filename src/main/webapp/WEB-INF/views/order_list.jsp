@@ -109,11 +109,11 @@
                     <c:set var="totalOrderQuantity" value="0" />
                     <c:forEach var="orderProduct" items="${order.orderProducts}">
                         <tr>
-                            <td>${orderProduct.product_name}</td>
-                            <td>${orderProduct.total_product_quantity}</td>
-                            <td class="text-center price">${orderProduct.total_product_price}</td>
+                            <td>${orderProduct.productName}</td>
+                            <td>${orderProduct.totalProductQuantity}</td>
+                            <td class="text-center price">${orderProduct.totalProductPrice}</td>
                         </tr>
-                        <c:set var="totalOrderQuantity" value="${totalOrderQuantity + orderProduct.total_product_quantity}" />
+                        <c:set var="totalOrderQuantity" value="${totalOrderQuantity + orderProduct.totalProductQuantity}" />
                     </c:forEach>
                     </tbody>
                 </table>
@@ -125,7 +125,7 @@
                 <hr>
                 <div class="row">
                     <h5 class="col">배송 상태</h5>
-                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.order_status}</span></h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.orderStatus}</span></h5>
                 </div>
                 <div class="row">
                     <h5 class="col">총 수량</h5>
@@ -133,17 +133,17 @@
                 </div>
                 <div class="row pt-2 pb-2 border-top">
                     <h5 class="col">총 금액</h5>
-                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.total_price}</span></h5>
+                    <h5 class="col text-end"><span class="badge bg-dark text-">${order.totalPrice}</span></h5>
                 </div>
 
                 <button class="btn btn-dark col-12 mb-3"
-                        onclick="confirmAction('/orders/delete?order_id=${order.order_id}')"
-                    ${order.order_status == '출고 후' ? 'disabled' : ''}>
+                        onclick="confirmAction('/orders/delete?order_id=${order.orderId}')"
+                    ${order.orderStatus == '출고 후' ? 'disabled' : ''}>
                     주문 취소
                 </button>
                 <button class="btn btn-dark col-12 mb-3"
-                        onclick="location.href='/orders/modify?order_id=${order.order_id}'"
-                    ${order.order_status == '출고 후' ? 'disabled' : ''}>
+                        onclick="location.href='/orders/modify?order_id=${order.orderId}'"
+                    ${order.orderStatus == '출고 후' ? 'disabled' : ''}>
                     주문 수정
                 </button>
 

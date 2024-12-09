@@ -18,17 +18,17 @@
 
     for( OrderDTO to : lists ) {
 
-        orderIds.add(to.getOrder_id());
+        orderIds.add(to.getOrderId());
 
-        int order_id = to.getOrder_id();
+        int order_id = to.getOrderId();
         String email = to.getEmail();
         String address = to.getAddress();
         String zipcode = to.getZipcode();
-        LocalDateTime localDateTime = to.getOrder_time();
+        LocalDateTime localDateTime = to.getOrderTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String order_time = localDateTime.format(formatter);
-        String order_status = to.getOrder_status();
-        int total_price = to.getTotal_price();
+        String order_status = to.getOrderStatus();
+        int total_price = to.getTotalPrice();
 
         sbHtml.append( "<tr>" );
         sbHtml.append( "<td>&nbsp;</td>" );

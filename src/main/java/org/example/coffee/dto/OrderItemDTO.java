@@ -12,8 +12,8 @@ import org.apache.ibatis.type.Alias;
 public class OrderItemDTO {
 
     private int seq;
-    private int order_id;
-    private int product_id;
+    private int orderId;
+    private int productId;
     private int count;
 
 }

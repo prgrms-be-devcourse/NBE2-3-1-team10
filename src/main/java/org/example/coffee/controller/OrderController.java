@@ -50,7 +50,7 @@ public class OrderController {
         }
 
         for (OrderDTO order : orders) {
-            List<OrderProductDTO> orderProducts = orderDAO.findOrderProducts(order.getOrder_id());
+            List<OrderProductDTO> orderProducts = orderDAO.findOrderProducts(order.getOrderId());
             order.setOrderProducts(orderProducts);
         }
         model.addAttribute("orders", orders);
@@ -62,7 +62,7 @@ public class OrderController {
     public String modifyOrder(int order_id, Model model) {
 
         OrderDTO to = new OrderDTO();
-        to.setOrder_id(order_id);
+        to.setOrderId(order_id);
         to = orderDAO.modifyOrder(to);
         model.addAttribute("to", to);
 
@@ -72,7 +72,7 @@ public class OrderController {
     @PostMapping("/modify_ok")
     public String modifyOrderOk(HttpServletRequest request, Model model) {
         OrderDTO to = new OrderDTO();
-        to.setOrder_id(Integer.parseInt(request.getParameter("order_id")));
+        to.setOrderId(Integer.parseInt(request.getParameter("order_id")));
         to.setAddress(request.getParameter("address"));
         to.setZipcode(request.getParameter("zipcode"));
         System.out.println(to);
@@ -103,16 +103,16 @@ public class OrderController {
         orderDTO.setEmail(request.getEmail());
         orderDTO.setAddress(request.getAddress());
         orderDTO.setZipcode(request.getZipcode());
-        orderDTO.setOrder_time(LocalDateTime.now());
-        orderDTO.setOrder_status("출고 전");
-        orderDTO.setTotal_price(request.getTotal_price());
+        orderDTO.setOrderTime(LocalDateTime.now());
+        orderDTO.setOrderStatus("출고 전");
+        orderDTO.setTotalPrice(request.getTotalPrice());
         orderDAO.add(orderDTO);
 
-        System.out.println(orderDTO.getOrder_id());
+        System.out.println(orderDTO.getOrderId());
         for (RequestOrderProductDTO requestOrderProductDTO : request.getOrderProducts()) {
             OrderItemDTO orderItemDTO = new OrderItemDTO();
-            orderItemDTO.setOrder_id(orderDTO.getOrder_id());
-            orderItemDTO.setProduct_id(requestOrderProductDTO.getProductId());
+            orderItemDTO.setOrderId(orderDTO.getOrderId());
+            orderItemDTO.setProductId(requestOrderProductDTO.getProductId());
             orderItemDTO.setCount(requestOrderProductDTO.getQuantity());
 
             flag = orderItemDAO.insert(orderItemDTO);

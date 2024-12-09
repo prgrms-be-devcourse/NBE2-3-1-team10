@@ -41,11 +41,11 @@ public class DeliveryController {
 
             for (String orderId : orderIds) {
                 OrderDTO to = new OrderDTO();
-                to.setOrder_id(Integer.parseInt(orderId.trim()));
+                to.setOrderId(Integer.parseInt(orderId.trim()));
                 int result = deliveryDAO.deliveryOk(to);
 
                 if (result != 0) {
-                    failedIds.add(to.getOrder_id());
+                    failedIds.add(to.getOrderId());
                 }
 
             }

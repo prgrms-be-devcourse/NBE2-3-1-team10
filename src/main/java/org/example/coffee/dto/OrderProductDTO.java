@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 public class OrderProductDTO {
     private String imagename;
-    private String product_name;
-    private String total_product_quantity;
-    private int total_product_price;
+    private String productName;
+    private String totalProductQuantity;
+    private int totalProductPrice;
 }

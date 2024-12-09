@@ -11,11 +11,11 @@ import java.util.List;
 @Setter
 @ToString
 public class RequestOrderDTO {
-    private int order_id;
+    private int orderId;
     private String email;
     private String address;
     private String zipcode;
-    private int total_price;
+    private int totalPrice;
     private List<RequestOrderProductDTO> orderProducts;
 
     public void setOrderProducts(List<RequestOrderProductDTO> orderProducts) {

@@ -13,13 +13,13 @@ import java.util.List;
 @Setter
 @ToString
 public class OrderDTO {
-    private int order_id;
+    private int orderId;
     private String email;
     private String address;
     private String zipcode;
-    private LocalDateTime order_time;
-    private String order_status;
-    private int total_price;
+    private LocalDateTime orderTime;
+    private String orderStatus;
+    private int totalPrice;
 
     private List<OrderProductDTO> orderProducts;
 
