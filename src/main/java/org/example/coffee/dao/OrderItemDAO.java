@@ -1,7 +1,7 @@
 
 package org.example.coffee.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import org.example.coffee.dto.OrderItemDTO;
@@ -10,10 +10,9 @@ import org.example.coffee.mapper.OrderItemMapper;
 import java.util.ArrayList;
 
 @Repository
+@RequiredArgsConstructor
 public class OrderItemDAO {
-
-    @Autowired
-    private OrderItemMapper orderItemMapper;
+    private final OrderItemMapper orderItemMapper;
 
     public ArrayList<OrderItemDTO> getOrderItems(OrderItemDTO dto) {
 

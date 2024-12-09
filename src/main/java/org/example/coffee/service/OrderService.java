@@ -1,6 +1,6 @@
 package org.example.coffee.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,13 +14,11 @@ import org.example.coffee.dto.ProductDTO;
 import java.util.ArrayList;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
-    @Autowired
-    private OrderDAO orderDAO;
-    @Autowired
-    private OrderItemDAO orderItemDAO;
-    @Autowired
-    private ProductDAO productDAO;
+    private final OrderDAO orderDAO;
+    private final OrderItemDAO orderItemDAO;
+    private final ProductDAO productDAO;
 
     @Transactional
     public void deleteOrder(String orderId) {

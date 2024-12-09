@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class OrderDAO {
-
     private final OrderMapper orderMapper;
 
     public List<OrderDTO> findOrderByEmail(String email) {
@@ -32,9 +31,9 @@ public class OrderDAO {
 
         int result = orderMapper.modifyOk(to);
 
-        if( result == 0 ) {
+        if (result == 0) {
             flag = 1;
-        } else if( result == 1 ) {
+        } else if (result == 1) {
             flag = 0;
         }
 
