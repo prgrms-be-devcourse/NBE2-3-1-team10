@@ -121,11 +121,7 @@ public class AdminController {
         } catch (IOException e) {
             System.out.println("[ERROR] : " + e.getMessage());
         }
-        System.out.println("flag : " + deleteFlage);
-        if (deleteFlage == 1) {
-            System.out.println("이미지 삭제 로직");
-            deleteImage(dto);
-        }
+
         int flag = productDAO.updateProduct(dto);
         model.addAttribute("flag", flag);
 
@@ -155,8 +151,5 @@ public class AdminController {
         } else {
             System.out.println("이미지 파일이 존재하지 않습니다");
         }
-        // 기본 이미지 설정
-        dto.setImagename(dafaultIMG);
-        productDAO.updateImage(dto);
     }
 }

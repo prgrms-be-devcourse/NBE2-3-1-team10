@@ -20,6 +20,7 @@
             break;
         case 3:
             category = "tea";
+            break;
         default:
             category = "select";
     }
@@ -55,9 +56,12 @@
                     return false;
                 }
 
-                if (document.wfrm.upload.value == '') {
-                    alert('이미지를 등록해주세요.');
-                    return false;
+                if (document.wfrm.upload.value != '') {
+                    let extension = document.wfrm.upload.value.split( '.' ).pop();
+                    if( extension != 'png' && extension != 'jpg' && extension != 'gif' ) {
+                        alert( '이미지 파일을 등록하셔야 합니다.' );
+                        return false;
+                    }
                 }
 
                 document.wfrm.submit();
@@ -92,9 +96,9 @@
                         <td>
                             <select name="category" class="board_view_input_mail">
                                 <option value="<%=categoryId%>" selected><%=category%></option>
-                                <option value="coffee">Coffee</option>
-                                <option value="coffeeBean">Coffee Bean</option>
-                                <option value="tea">Tea</option>
+                                <option value="1">Coffee</option>
+                                <option value="2">Coffee Bean</option>
+                                <option value="3">Tea</option>
                             </select>
                         </td>
                     </tr>
@@ -103,7 +107,7 @@
                         <td>
                             기존 이미지 : <img src="${imagePath}" alt="기존 상품 이미지" style="max-width: 200px; height: auto;" />
                             <br/><br/>
-                            <input type="file" name="upload" value="" />
+                            <input type="file" name="upload"/>
                         </td>
                     </tr>
                 </table>
