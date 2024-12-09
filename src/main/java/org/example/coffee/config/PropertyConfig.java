@@ -21,7 +21,7 @@ public class PropertyConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // /upload/** URL로 들어오는 요청을 Desktop/pjt1/uploads 디렉토리에서 매핑
+        // /upload/** URL로 들어오는 요청을 /uploads 디렉토리에서 매핑
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:" + home + path);
     }
