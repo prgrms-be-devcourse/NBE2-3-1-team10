@@ -52,7 +52,7 @@
         where product_id=#{productId}
     </update>
 
-    <update id="reduceQuantity" parameterType="ProductDTO">
+    <update id="reduceQuantity" parameterType="OrderItemDTO">
         update product
         set quantity=quantity-#{count}
         where product_id = #{productId};
