@@ -47,72 +47,79 @@
 ```
 .
 ├── README.md
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── org
-    │   │       └── example
-    │   │           └── coffee
-    │   │               ├── CoffeeApplication.java
-    │   │               ├── config
-    │   │               │   └── PropertyConfig.java
-    │   │               ├── controller
-    │   │               │   ├── AdminController.java
-    │   │               │   ├── OrderController.java
-    │   │               │   └── UserController.java
-    │   │               ├── dao
-    │   │               │   ├── OrderDAO.java
-    │   │               │   ├── OrderItemDAO.java
-    │   │               │   └── ProductDAO.java
-    │   │               ├── dto
-    │   │               │   ├── OrderDTO.java
-    │   │               │   ├── OrderItemDTO.java
-    │   │               │   ├── OrderProductDTO.java
-    │   │               │   ├── ProductDTO.java
-    │   │               │   ├── RequestOrderDTO.java
-    │   │               │   └── RequestOrderProductDTO.java
-    │   │               ├── mapper
-    │   │               │   ├── CoffeeMapper.java
-    │   │               │   ├── OrderItemMapper.java
-    │   │               │   └── OrderMapper.java
-    │   │               └── service
-    │   │                   └── OrderService.java
-    │   ├── resources
-    │   │   ├── application.properties
-    │   │   ├── mappers
-    │   │   │   ├── coffeeMapper.xml
-    │   │   │   ├── orderItemMapper.xml
-    │   │   │   └── orderMapper.xml
-    │   │   ├── schema.sql
-    │   │   ├── static
-    │   │   │   ├── css
-    │   │   │   │   ├── board.css
-    │   │   │   │   └── board_list.css
-    │   │   │   └── upload
-    │   │   │       ├── 607927_1.jpg
-    │   │   │       ├── 607927_1_thumb1.jpg
-    │   │   │       ├── coffee1_431006666247041.jpg
-    │   │   │       ├── coffee2_431028434825166.jpg
-    │   │   │       ├── coffee3_431046794474916.jpg
-    │   │   │       ├── coffeeBean1_432261544218375.jpg
-    │   │   │       ├── coffeeBean2_433172843731958.jpg
-    │   │   │       ├── defaultIMG.png
-    │   │   │       └── tea1_433226014444916.jpg
-    │   │   └── templates
-    │   └── webapp
-    │       └── WEB-INF
-    │           └── views
-    │               ├── admin_add.jsp
-    │               ├── admin_add_ok.jsp
-    │               ├── admin_list.jsp
-    │               ├── admin_modify.jsp
-    │               ├── admin_product_modify.jsp
-    │               ├── menu_list.jsp
-    │               ├── order_delete_ok.jsp
-    │               ├── order_list.jsp
-    │               ├── order_modify.jsp
-    │               ├── order_modify_ok.jsp
-    │               └── user_check_form.jsp
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── org
+│   │   │       └── example
+│   │   │           └── coffee
+│   │   │               ├── CoffeeApplication.java
+│   │   │               ├── config
+│   │   │               │   └── PropertyConfig.java
+│   │   │               ├── controller
+│   │   │               │   ├── AdminController.java
+│   │   │               │   ├── DeliveryController.java
+│   │   │               │   ├── MenuController.java
+│   │   │               │   └── OrderController.java
+│   │   │               ├── dao
+│   │   │               │   ├── DeliveryDAO.java
+│   │   │               │   ├── OrderDAO.java
+│   │   │               │   ├── OrderItemDAO.java
+│   │   │               │   └── ProductDAO.java
+│   │   │               ├── dto
+│   │   │               │   ├── OrderDTO.java
+│   │   │               │   ├── OrderItemDTO.java
+│   │   │               │   ├── OrderProductDTO.java
+│   │   │               │   ├── ProductDTO.java
+│   │   │               │   ├── RequestOrderDTO.java
+│   │   │               │   └── RequestOrderProductDTO.java
+│   │   │               ├── mapper
+│   │   │               │   ├── CoffeeMapper.java
+│   │   │               │   ├── DeliveryMapper.java
+│   │   │               │   ├── OrderItemMapper.java
+│   │   │               │   └── OrderMapper.java
+│   │   │               └── service
+│   │   │                   └── OrderService.java
+│   │   ├── resources
+│   │   │   ├── application.properties
+│   │   │   ├── mappers
+│   │   │   │   ├── coffeeMapper.xml
+│   │   │   │   ├── deliveryMapper.xml
+│   │   │   │   ├── orderItemMapper.xml
+│   │   │   │   └── orderMapper.xml
+│   │   │   ├── schema.sql
+│   │   │   ├── static
+│   │   │   │   ├── css
+│   │   │   │   │   ├── board.css
+│   │   │   │   │   └── board_list.css
+│   │   │   │   └── upload
+│   │   │   │       ├── coffee1_431006666247041.jpg
+│   │   │   │       ├── coffee2_431028434825166.jpg
+│   │   │   └── templates
+│   │   └── webapp
+│   │       └── WEB-INF
+│   │           └── views
+│   │               ├── admin_add.jsp
+│   │               ├── admin_add_ok.jsp
+│   │               ├── admin_delete.jsp
+│   │               ├── admin_list.jsp
+│   │               ├── admin_product_modify.jsp
+│   │               ├── admin_product_modify_ok.jsp
+│   │               ├── delivery_list.jsp
+│   │               ├── delivery_ok.jsp
+│   │               ├── menu_list.jsp
+│   │               ├── order_delete_ok.jsp
+│   │               ├── order_list.jsp
+│   │               ├── order_modify.jsp
+│   │               ├── order_modify_ok.jsp
+│   │               └── user_check_form.jsp
+│   └── test
+│       └── java
+│           └── org
+│               └── example
+│                   └── coffee
+│                       └── CoffeeApplicationTests.java
+└── uploads
 ```
 
 
@@ -159,6 +166,8 @@
 
 - 전체 개발 기간 : 2024-12-02 ~ 2024-12-10
 - 이벤트 스토밍, ERD설계 : 2024-12-02 ~ 2024-12-03
+<img width="1836" alt="event_stroming" src="https://github.com/user-attachments/assets/21d12263-12ba-4ffe-9f0d-0c627a7c923f">
+<img width="1638" alt="erd1" src="https://github.com/user-attachments/assets/b0751851-1ae0-43eb-aa7d-0ae23aac4521">
 - 기능 구현 : 2024-12-04 ~ 2024-12-09
 
 
@@ -209,9 +218,10 @@
 
 ### [관리자 상품 목록 페이지]
 
-<img width="2560" alt="list9" src="https://github.com/user-attachments/assets/38183215-ffbe-4983-a0e7-5dcb7d1680f4">
+<img width="2560" alt="product_list1" src="https://github.com/user-attachments/assets/99371373-df0c-4fbe-915a-2b372f36f658">
 
 - 관리자가 상품을 관리할 수 있도록 관리자 페이지에 상품을 등록/수정/삭제가 가능하게 구현하였습니다.
+- 배송 관리를 누르면 상품을 출고할 수 있는 페이지로 이동할 수 있습니다.
 
 
 ### [관리자 상품 등록 페이지]
@@ -228,6 +238,14 @@
 
 - 등록된 상품을 수정할 수 있습니다.
 - 상품 번호를 제외한 모든 값을 변경할 수 있습니다.
+
+
+### [관리자 상품 출고 페이지]
+
+<img width="2560" alt="product_delivery1" src="https://github.com/user-attachments/assets/b9bae12f-6b07-465d-b7f1-6512328b6ff6">
+
+- 오늘 배송할 주문 목록들을 확인할 수 있고 출고 버튼을 누르면 제품을 출고하여 주문의 상태를 배송중으로 변경합니다.
+- 배송중인 주문은 수정이 불가능합니다.
 
 
 ## 트러블 슈팅
