@@ -40,7 +40,7 @@
         sb.append("<td>");
         sb.append("<input type=\"button\" value=\"상품수정\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./modify?productId=" + productId + "'\" />");
         sb.append("&nbsp;&nbsp;");
-        sb.append("<input type=\"button\" value=\"상품삭제\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"location.href='./delete?productId=" + productId + "'\" />");
+        sb.append("<input type=\"button\" value=\"상품삭제\" class=\"btn_write btn_txt01\" style=\"cursor: pointer;\" onclick=\"if(confirm('정말 삭제하시겠습니까?')) { location.href='./delete?productId=" + productId + "'; }\" />");
         sb.append("</td>");
         sb.append("</tr>");
     }
