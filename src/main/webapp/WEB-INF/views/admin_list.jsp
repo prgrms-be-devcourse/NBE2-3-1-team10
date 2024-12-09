@@ -82,6 +82,7 @@
 
         <div class="btn_area">
             <div class="align_right">
+                <input type="button" value="상품목록" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='/'" />
                 <input type="button" value="상품등록" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='./add'" />
             </div>
         </div>
