@@ -41,8 +41,6 @@ dependencies {
     // jstl
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
-    // env
-    implementation("io.github.cdimascio:java-dotenv:5.2.2")
 }
 
 tasks.named('test') {
