@@ -33,7 +33,7 @@
         where order_id=#{orderId}
     </delete>
 
-    <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="order_id">
+    <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="orderId">
         INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
         VALUES (#{email}, #{address}, #{zipcode}, #{orderTime}, #{orderStatus}, #{totalPrice})
     </insert>

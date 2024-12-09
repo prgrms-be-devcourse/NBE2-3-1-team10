@@ -61,7 +61,7 @@
                     <button type="submit" class="btn btn-dark col-12 mb-3">제출</button>
                 </div>
             </form>
-            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/user/menu_list'">상품 목록</button>
+            <button type="submit" class="btn btn-dark col-12" onclick="location.href='/'">상품 목록</button>
         </div>
     </div>
 </div>

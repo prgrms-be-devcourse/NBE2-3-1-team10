@@ -27,7 +27,6 @@
         }
 
         String imagePath = "/upload/" + imageName;
-        System.out.println("[imagePath] : " + imagePath);
 
         sbHtml.append("<li class='list-group-item d-flex mt-3'>");
         sbHtml.append("<input type='hidden' name='productId' value='" + productId + "'>");
@@ -87,7 +86,7 @@
 
                 if (data.success) {
                     alert("주문이 성공적으로 처리되었습니다.");
-                    window.location.href = '/user/menu_list';
+                    window.location.href = '/';
                 } else {
                     alert(`주문 실패: ${data.message || "주문이 실패했습니다."}`);
                 }
