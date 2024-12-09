@@ -35,10 +35,3 @@ CREATE TABLE category
     category_id     int           primary key,
     name            varchar(20)   NOT NULL
 );
-
-
--- insert into product values (0, '커피1', 12000, 10,
---                             '607927_1_thumb1.jpg',1);
---
--- insert into product values (0, '커피2', 13000, 20,
---                             '607927_1_thumb1.jpg',1);

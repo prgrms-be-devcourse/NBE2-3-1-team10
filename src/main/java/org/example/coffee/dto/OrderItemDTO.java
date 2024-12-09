@@ -10,7 +10,6 @@ import org.apache.ibatis.type.Alias;
 @Setter
 @ToString
 public class OrderItemDTO {
-
     private int seq;
     private int order_id;
     private int product_id;

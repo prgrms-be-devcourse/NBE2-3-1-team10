@@ -10,7 +10,6 @@ import org.apache.ibatis.type.Alias;
 @Setter
 @ToString
 public class ProductDTO {
-
     private int product_id;
     private String product_name;
     private int price;
