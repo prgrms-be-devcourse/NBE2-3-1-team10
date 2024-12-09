@@ -37,5 +37,4 @@
         INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
         VALUES (#{email}, #{address}, #{zipcode}, #{orderTime}, #{orderStatus}, #{totalPrice})
     </insert>
-
 </mapper>

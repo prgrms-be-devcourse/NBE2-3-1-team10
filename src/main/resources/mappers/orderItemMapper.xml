@@ -19,10 +19,4 @@
         INSERT INTO order_item (order_id, product_id, count)
         VALUES (#{orderId}, #{productId}, #{count})
     </insert>
-
-
-    <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="order_id">
-        INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
-        VALUES (#{email}, #{address}, #{zipcode}, #{orderTime}, #{orderStatus}, #{totalPrice})
-    </insert>
 </mapper>
