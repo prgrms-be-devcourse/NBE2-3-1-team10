@@ -15,7 +15,6 @@ import org.example.coffee.config.PropertyConfig;
 import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.ProductDTO;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
     @Autowired
     private PropertyConfig propertyConfig;
     @Autowired
