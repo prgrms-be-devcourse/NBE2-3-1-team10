@@ -1,21 +1,21 @@
 package org.example.coffee.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.example.coffee.dao.DeliveryDAO;
 import org.example.coffee.dto.OrderDTO;
 
 import java.util.ArrayList;
 
 @Controller
+@RequiredArgsConstructor
 public class DeliveryController {
-    @Autowired
-    private DeliveryDAO deliveryDAO;
+    private final DeliveryDAO deliveryDAO;
 
     @GetMapping("/delivery")
     public String delivery(Model model) {
