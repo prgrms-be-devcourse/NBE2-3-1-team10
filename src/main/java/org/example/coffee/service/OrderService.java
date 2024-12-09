@@ -35,20 +35,20 @@ public class OrderService {
 
         try {
             OrderItemDTO OiDto = new OrderItemDTO();
-            OiDto.setOrder_id(Integer.parseInt(orderId));
+            OiDto.setOrderId(Integer.parseInt(orderId));
 
             // dto 안에 order_id를 담아서 order_id=#{order_id}인 객체들을 리스트로 넘김
             ArrayList<OrderItemDTO> orderItemList = orderItemDAO.getOrderItems(OiDto);
 
             for (OrderItemDTO dto : orderItemList) {
 
-                int productId = dto.getProduct_id();
+                int productId = dto.getProductId();
                 int count = dto.getCount();
                 int seq = dto.getSeq();
 
                 // product 테이블 update(product_id, count)
                 ProductDTO pDto = new ProductDTO();
-                pDto.setProduct_id(productId);
+                pDto.setProductId(productId);
                 pDto.setQuantity(count);
 
                 int productFlag = productDAO.update(pDto); // update 성공하면 0
@@ -68,7 +68,7 @@ public class OrderService {
             // orders 테이블 delete(order_id)
             // 마지막으로 orders 테이블에 있는 주문을 삭제.
             OrderDTO oDto = new OrderDTO();
-            oDto.setOrder_id(Integer.parseInt(orderId));
+            oDto.setOrderId(Integer.parseInt(orderId));
             int orderFlag = orderDAO.delete(oDto); // delete 성공하면 0
             if (orderFlag != 0) {
                 throw new RuntimeException("Order delete failed");

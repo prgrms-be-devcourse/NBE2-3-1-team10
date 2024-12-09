@@ -5,7 +5,7 @@
 <%
     OrderDTO to = (OrderDTO)request.getAttribute( "to" );
 
-    int order_id = to.getOrder_id();
+    int order_id = to.getOrderId();
     String address = to.getAddress();
     String zipcode = to.getZipcode();
 

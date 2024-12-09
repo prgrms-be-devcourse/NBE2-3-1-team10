@@ -5,10 +5,10 @@
 <%
     ProductDTO to = (ProductDTO) request.getAttribute("to");
 
-    String productName = to.getProduct_name();
+    String productName = to.getProductName();
     int price = to.getPrice();
     int quantity = to.getQuantity();
-    int categoryId = to.getCategory_id();
+    int categoryId = to.getCategoryId();
     String category;
 
     switch (categoryId) {

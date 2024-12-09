@@ -8,12 +8,12 @@
 
     for (ProductDTO to : menu_list) {
 
-        int productId = to.getProduct_id();
-        String productName = to.getProduct_name();
+        int productId = to.getProductId();
+        String productName = to.getProductName();
         int price = to.getPrice();
         int stock = to.getQuantity();
         String imageName = to.getImagename();
-        int categoryId = to.getCategory_id();
+        int categoryId = to.getCategoryId();
         String category = "";
 
         if (categoryId == 1) {

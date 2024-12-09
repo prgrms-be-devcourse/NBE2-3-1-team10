@@ -12,11 +12,11 @@
 
     for (ProductDTO dto : list) {
 
-        int productId = dto.getProduct_id();
-        String productName = dto.getProduct_name();
+        int productId = dto.getProductId();
+        String productName = dto.getProductName();
         int price = dto.getPrice();
         int quantity = dto.getQuantity();
-        int categoryId = dto.getCategory_id();
+        int categoryId = dto.getCategoryId();
         String category = "";
 
         if(categoryId == 1) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.example.coffee.config.PropertyConfig;
 import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.ProductDTO;
@@ -20,12 +21,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private PropertyConfig propertyConfig;
-    @Autowired
-    private ProductDAO productDAO;
+    private final PropertyConfig propertyConfig;
+    private final ProductDAO productDAO;
 
     @GetMapping("/list")
     public String product(Model model) {
@@ -48,10 +48,10 @@ public class AdminController {
                              Model model) {
 
         ProductDTO dto = new ProductDTO();
-        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setProductName(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+        dto.setCategoryId(Integer.parseInt(request.getParameter("category")));
 
         if(!upload.isEmpty()) {
             try {
@@ -62,14 +62,14 @@ public class AdminController {
 
                 fileName = name + "_" + System.nanoTime() + ext;
                 upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
-              
+
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
                 System.out.println("[ERROR] : " + e.getMessage());
             }
         }
-      
+
         int flag = productDAO.insert(dto);
         model.addAttribute("flag", flag);
 
@@ -80,7 +80,7 @@ public class AdminController {
     public String modifyProduct(@RequestParam String productId, Model model) {
 
         ProductDTO to = new ProductDTO();
-        to.setProduct_id(Integer.parseInt(productId));
+        to.setProductId(Integer.parseInt(productId));
         ProductDTO productDTO = productDAO.getProduct(to);
 
         model.addAttribute("to", productDTO);
@@ -96,14 +96,14 @@ public class AdminController {
                                   Model model
     ) {
         ProductDTO requestDto = new ProductDTO();
-        requestDto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
+        requestDto.setProductId(Integer.parseInt(request.getParameter("product_id")));
 
         ProductDTO dto = productDAO.getProduct(requestDto);
 
-        dto.setProduct_name(request.getParameter("product_name"));
+        dto.setProductName(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
+        dto.setCategoryId(Integer.parseInt(request.getParameter("category")));
 
         try {
             if (!upload.isEmpty()) {

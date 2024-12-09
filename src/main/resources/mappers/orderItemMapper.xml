@@ -6,7 +6,7 @@
     <select id="getOrderItems" parameterType="OrderItemDTO" resultType="OrderItemDTO">
         select *
         from order_item
-        where order_id=#{order_id}
+        where order_id=#{orderId}
     </select>
 
     <!-- 주문 취소 시 seq를 이용하여 order_item 테이블의 객체를 삭제하는 sql -->
@@ -17,12 +17,12 @@
 
     <insert id="insert" parameterType="OrderItemDTO">
         INSERT INTO order_item (order_id, product_id, count)
-        VALUES (#{order_id}, #{product_id}, #{count})
+        VALUES (#{orderId}, #{productId}, #{count})
     </insert>
 
 
     <insert id="add" parameterType="OrderDTO" useGeneratedKeys="true" keyProperty="order_id">
         INSERT INTO orders (email, address, zipcode, order_time, order_status, total_price)
-        VALUES (#{email}, #{address}, #{zipcode}, #{order_time}, #{order_status}, #{total_price})
+        VALUES (#{email}, #{address}, #{zipcode}, #{orderTime}, #{orderStatus}, #{totalPrice})
     </insert>
 </mapper>
