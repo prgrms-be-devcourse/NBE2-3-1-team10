@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.example.coffee.mapper.DeliveryMapper">
 
-    <select id="deliveryList" resultType="orderDto">
+    <select id="deliveryList" resultType="OrderDTO">
         <![CDATA[
         select *
         from orders
@@ -11,7 +11,7 @@
         ]]>
     </select>
 
-    <update id="updateOrderStatus" parameterType="orderDto">
+    <update id="updateOrderStatus" parameterType="OrderDTO">
         UPDATE orders
         SET order_status = '출고 후'
         WHERE order_id = #{orderId}

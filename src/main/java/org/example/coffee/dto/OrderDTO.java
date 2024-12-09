@@ -1,17 +1,14 @@
 package org.example.coffee.dto;
 
 import lombok.*;
-import org.apache.ibatis.type.Alias;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias(value = "orderDto")
 @Getter
 @Setter
-@ToString
 public class OrderDTO {
     private int orderId;
     private String email;

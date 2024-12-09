@@ -1,14 +1,9 @@
 package org.example.coffee.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.apache.ibatis.type.Alias;
+import lombok.*;
 
-@Alias(value = "dto")
 @Getter
 @Setter
-@ToString
 public class ProductDTO {
     private int productId;
     private String productName;
