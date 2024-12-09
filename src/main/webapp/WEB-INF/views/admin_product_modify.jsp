@@ -5,6 +5,7 @@
 <%
     ProductDTO to = (ProductDTO) request.getAttribute("to");
 
+    int productId = to.getProductId();
     String productName = to.getProductName();
     int price = to.getPrice();
     int quantity = to.getQuantity();
@@ -55,7 +56,6 @@
                     alert('카테고리를 입력해주세요.');
                     return false;
                 }
-
                 if (document.wfrm.upload.value != '') {
                     let extension = document.wfrm.upload.value.split( '.' ).pop();
                     if( extension != 'png' && extension != 'jpg' && extension != 'gif' ) {
@@ -63,7 +63,6 @@
                         return false;
                     }
                 }
-
                 document.wfrm.submit();
             };
         };
@@ -73,7 +72,8 @@
 <h3>Admin Page - product add</h3>
 <br><br>
 <div class="con_txt">
-    <form action="/admin/product/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
+    <form action="/admin/modify_ok" method="post" name="wfrm" enctype="multipart/form-data">
+        <input type="hidden" name="product_id" value="<%=productId%>"/>
         <div class="contents_sub">
             <div class="board_write">
                 <table>
@@ -106,8 +106,8 @@
                         <th>상품이미지</th>
                         <td>
                             기존 이미지 : <img src="${imagePath}" alt="기존 상품 이미지" style="max-width: 200px; height: auto;" />
-                            <br/><br/>
                             <input type="file" name="upload"/>
+
                         </td>
                     </tr>
                 </table>

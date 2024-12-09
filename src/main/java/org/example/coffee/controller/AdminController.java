@@ -62,7 +62,6 @@ public class AdminController {
 
                 fileName = name + "_" + System.nanoTime() + ext;
                 upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
-
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
@@ -113,7 +112,7 @@ public class AdminController {
                 String ext = fileName.substring(fileName.lastIndexOf("."));
                 fileName = name + "_" + System.nanoTime() + ext;
 
-                upload.transferTo(new File(propertyConfig.getHome() + propertyConfig.getPath() + fileName));
+                upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
                 dto.setImagename(fileName);
                 productDAO.updateImage(dto);
             }
