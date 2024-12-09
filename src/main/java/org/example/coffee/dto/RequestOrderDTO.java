@@ -17,9 +17,5 @@ public class RequestOrderDTO {
     private String zipcode;
     private int total_price;
     private List<RequestOrderProductDTO> orderProducts;
-
-    public void setOrderProducts(List<RequestOrderProductDTO> orderProducts) {
-        this.orderProducts = List.copyOf(orderProducts);
-    }
 }
 

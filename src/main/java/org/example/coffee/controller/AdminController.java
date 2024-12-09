@@ -28,8 +28,6 @@ public class AdminController {
     private PropertyConfig propertyConfig;
     @Autowired
     private ProductDAO productDAO;
-    private final String dafaultIMG = "defaultIMG.png";
-
 
     @GetMapping("/list")
     public String product(Model model) {
@@ -99,15 +97,19 @@ public class AdminController {
                                   @RequestParam("upload") MultipartFile upload,
                                   Model model
     ) {
-        ProductDTO dto = new ProductDTO();
-        dto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
+        ProductDTO requestDto = new ProductDTO();
+        requestDto.setProduct_id(Integer.parseInt(request.getParameter("product_id")));
+
+        ProductDTO dto = productDAO.getProduct(requestDto);
+
         dto.setProduct_name(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         dto.setCategory_id(Integer.parseInt(request.getParameter("category")));
-        int deleteFlage = Integer.parseInt(request.getParameter("flag"));
+
         try {
             if (!upload.isEmpty()) {
+                deleteImage(dto);
                 String fileName = upload.getOriginalFilename();
                 String name = fileName.substring(0, fileName.lastIndexOf("."));
                 String ext = fileName.substring(fileName.lastIndexOf("."));
@@ -117,15 +119,10 @@ public class AdminController {
                 dto.setImagename(fileName);
                 productDAO.updateImage(dto);
             }
-
         } catch (IOException e) {
             System.out.println("[ERROR] : " + e.getMessage());
         }
-        System.out.println("flag : " + deleteFlage);
-        if (deleteFlage == 1) {
-            System.out.println("이미지 삭제 로직");
-            deleteImage(dto);
-        }
+
         int flag = productDAO.updateProduct(dto);
         model.addAttribute("flag", flag);
 
@@ -155,8 +152,5 @@ public class AdminController {
         } else {
             System.out.println("이미지 파일이 존재하지 않습니다");
         }
-        // 기본 이미지 설정
-        dto.setImagename(dafaultIMG);
-        productDAO.updateImage(dto);
     }
 }
