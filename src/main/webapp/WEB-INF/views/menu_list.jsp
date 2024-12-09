@@ -72,7 +72,7 @@
                 email: email,
                 address: address,
                 zipcode: zipcode,
-                total_price: total_price
+                totalPrice: total_price
             }
 
             try {
