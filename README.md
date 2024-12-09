@@ -91,9 +91,6 @@
 │   │   │   │   ├── css
 │   │   │   │   │   ├── board.css
 │   │   │   │   │   └── board_list.css
-│   │   │   │   └── upload
-│   │   │   │       ├── coffee1_431006666247041.jpg
-│   │   │   │       ├── coffee2_431028434825166.jpg
 │   │   │   └── templates
 │   │   └── webapp
 │   │       └── WEB-INF
