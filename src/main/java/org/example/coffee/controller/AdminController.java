@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.example.coffee.config.PropertyConfig;
 import org.example.coffee.dao.ProductDAO;
 import org.example.coffee.dto.ProductDTO;
@@ -20,12 +21,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private PropertyConfig propertyConfig;
-    @Autowired
-    private ProductDAO productDAO;
+    private final PropertyConfig propertyConfig;
+    private final ProductDAO productDAO;
 
     @GetMapping("/list")
     public String product(Model model) {
