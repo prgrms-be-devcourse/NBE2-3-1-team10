@@ -86,8 +86,8 @@ public class OrderController {
                               Model model) {
 
         try {
-            boolean result = orderService.deleteOrder(orderId);
-            model.addAttribute("flag", result ? 0 : 1); // 성공 시 0, 실패 시 1
+            orderService.deleteOrder(orderId);
+            model.addAttribute("flag", 0); // 성공 시 0, 실패 시 1
         } catch (RuntimeException e) {
             model.addAttribute("flag", 1); // 실패 플래그 설정
         }

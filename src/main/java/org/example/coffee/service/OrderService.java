@@ -23,7 +23,7 @@ public class OrderService {
     private ProductDAO productDAO;
 
     @Transactional
-    public boolean deleteOrder(String orderId) {
+    public void deleteOrder(String orderId) {
 
         // 1. order_item 테이블에서 상품의 수량을 받아서 상품의 수량 수정 후 주문 상품 삭제
         // order_item 테이블에서 order_id = #{order_id}인 객체들을 가져옴
@@ -75,8 +75,6 @@ public class OrderService {
             if (orderFlag != 0) {
                 throw new RuntimeException("Order delete failed");
             }
-
-            return true; // 모든 작업 성공 시 true 반환
 
         } catch (Exception e) {
             throw new RuntimeException("Transaction failed: " + e.getMessage(), e);
