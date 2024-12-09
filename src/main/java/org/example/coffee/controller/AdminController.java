@@ -28,8 +28,6 @@ public class AdminController {
     private PropertyConfig propertyConfig;
     @Autowired
     private ProductDAO productDAO;
-    private final String dafaultIMG = "defaultIMG.png";
-
 
     @GetMapping("/list")
     public String product(Model model) {
@@ -66,14 +64,14 @@ public class AdminController {
 
                 fileName = name + "_" + System.nanoTime() + ext;
                 upload.transferTo(new File(propertyConfig.getUploadPath() + fileName));
-              
+
                 dto.setImagename(fileName);
 
             } catch (IOException e) {
                 System.out.println("[ERROR] : " + e.getMessage());
             }
         }
-      
+
         int flag = productDAO.insert(dto);
         model.addAttribute("flag", flag);
 
@@ -99,15 +97,19 @@ public class AdminController {
                                   @RequestParam("upload") MultipartFile upload,
                                   Model model
     ) {
-        ProductDTO dto = new ProductDTO();
-        dto.setProductId(Integer.parseInt(request.getParameter("product_id")));
+        ProductDTO requestDto = new ProductDTO();
+        requestDto.setProductId(Integer.parseInt(request.getParameter("product_id")));
+
+        ProductDTO dto = productDAO.getProduct(requestDto);
+
         dto.setProductName(request.getParameter("product_name"));
         dto.setPrice(Integer.parseInt(request.getParameter("price")));
         dto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         dto.setCategoryId(Integer.parseInt(request.getParameter("category")));
-        int deleteFlage = Integer.parseInt(request.getParameter("flag"));
+
         try {
             if (!upload.isEmpty()) {
+                deleteImage(dto);
                 String fileName = upload.getOriginalFilename();
                 String name = fileName.substring(0, fileName.lastIndexOf("."));
                 String ext = fileName.substring(fileName.lastIndexOf("."));
@@ -117,7 +119,6 @@ public class AdminController {
                 dto.setImagename(fileName);
                 productDAO.updateImage(dto);
             }
-
         } catch (IOException e) {
             System.out.println("[ERROR] : " + e.getMessage());
         }
